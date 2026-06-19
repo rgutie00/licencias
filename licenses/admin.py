@@ -10,6 +10,7 @@ import logging
 
 from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.html import format_html
@@ -66,11 +67,37 @@ class RowActionsMixin:
 
 # ── USUARIO (con estilos Unfold) ─────────────────────────────────────────────
 
+class UserCreateForm(UserCreationForm):
+    """Formulario de alta de usuario en un solo paso (con correo y nombres)."""
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ("username", "email", "first_name", "last_name")
+
+
 admin.site.unregister(User)
 
 @admin.register(User)
 class UserAdmin(RowActionsMixin, ModelAdmin, DjangoUserAdmin):
     list_display = ("username", "email", "first_name", "last_name", "is_staff", "acciones")
+
+    # Alta en un solo paso: sin el mensaje de "dos pasos" de Django.
+    add_form = UserCreateForm
+    add_form_template = None
+    add_fieldsets = (
+        ("Identidad", {
+            "classes": ("wide",),
+            "fields": ("username", "email", "first_name", "last_name"),
+        }),
+        ("Contraseña", {
+            "classes": ("wide",),
+            "fields": ("password1", "password2"),
+        }),
+        ("Perfil y acceso", {
+            "classes": ("wide",),
+            "description": "Marca «staff» para permitir el acceso a este panel.",
+            "fields": ("is_active", "is_staff", "groups"),
+        }),
+    )
 
 
 # ── INLINE: Licencias dentro de Cliente ─────────────────────────────────────
