@@ -17,9 +17,49 @@ from django.utils.safestring import mark_safe
 from unfold.admin import ModelAdmin
 from unfold.decorators import action
 
+from django.urls import reverse
+
 from .models import AuditLog, Client, License
 
 logger = logging.getLogger("licenses")
+
+
+# ── MIXIN: botones CRUD por fila (Editar / Borrar) ──────────────────────────
+
+class RowActionsMixin:
+    """Agrega una columna 'Acciones' con botones Editar y Borrar por fila,
+    visibles solo si el operador tiene el permiso correspondiente."""
+
+    def get_queryset(self, request):
+        # Guardamos el request para evaluar permisos al renderizar los botones.
+        self._request = request
+        return super().get_queryset(request)
+
+    @admin.display(description="Acciones")
+    def acciones(self, obj):
+        request = getattr(self, "_request", None)
+        meta = obj._meta
+        btns = []
+
+        if request is None or self.has_change_permission(request, obj):
+            url = reverse(f"admin:{meta.app_label}_{meta.model_name}_change", args=[obj.pk])
+            btns.append(
+                f'<a href="{url}" title="Editar" '
+                f'style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;'
+                f'margin-right:6px;border:1px solid #99F6E4;border-radius:8px;'
+                f'color:#0F766E;font-size:12px;font-weight:600;text-decoration:none;">'
+                f'<span class="material-symbols-outlined" style="font-size:15px;">edit</span>Editar</a>'
+            )
+        if request is None or self.has_delete_permission(request, obj):
+            url = reverse(f"admin:{meta.app_label}_{meta.model_name}_delete", args=[obj.pk])
+            btns.append(
+                f'<a href="{url}" title="Borrar" '
+                f'style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;'
+                f'border:1px solid #FECACA;border-radius:8px;'
+                f'color:#DC2626;font-size:12px;font-weight:600;text-decoration:none;">'
+                f'<span class="material-symbols-outlined" style="font-size:15px;">delete</span>Borrar</a>'
+            )
+        return mark_safe("".join(btns)) if btns else mark_safe('<span style="color:#94A3B8">—</span>')
 
 
 # ── USUARIO (con estilos Unfold) ─────────────────────────────────────────────
@@ -27,8 +67,8 @@ logger = logging.getLogger("licenses")
 admin.site.unregister(User)
 
 @admin.register(User)
-class UserAdmin(ModelAdmin, DjangoUserAdmin):
-    pass
+class UserAdmin(RowActionsMixin, ModelAdmin, DjangoUserAdmin):
+    list_display = ("username", "email", "first_name", "last_name", "is_staff", "acciones")
 
 
 # ── INLINE: Licencias dentro de Cliente ─────────────────────────────────────
@@ -60,10 +100,10 @@ class LicenseInline(admin.TabularInline):
 # ── CLIENTE ──────────────────────────────────────────────────────────────────
 
 @admin.register(Client)
-class ClientAdmin(ModelAdmin):
+class ClientAdmin(RowActionsMixin, ModelAdmin):
     list_display = [
         "name", "nit", "mac_short", "license_status_badge",
-        "trial_used_display", "anomalies_count", "created_at",
+        "trial_used_display", "anomalies_count", "created_at", "acciones",
     ]
     list_filter  = ["trial_used", "created_at"]
     search_fields = ["name", "nit", "mac"]
@@ -162,10 +202,10 @@ class ClientAdmin(ModelAdmin):
 # ── LICENCIA ─────────────────────────────────────────────────────────────────
 
 @admin.register(License)
-class LicenseAdmin(ModelAdmin):
+class LicenseAdmin(RowActionsMixin, ModelAdmin):
     list_display = [
         "client", "license_type", "status_badge", "expiry_date",
-        "days_remaining_display", "last_validated_at", "activated_at",
+        "days_remaining_display", "last_validated_at", "activated_at", "acciones",
     ]
     list_filter  = ["status", "license_type", "expiry_date"]
     search_fields = ["client__name", "client__nit", "client__mac"]

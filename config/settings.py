@@ -150,42 +150,27 @@ UNFOLD = {
         "show_all_applications": False,
         "navigation": [
             {
-                "title": "Dashboard",
+                "title": "General",
                 "items": [
                     {"title": "Inicio", "icon": "dashboard", "link": "/admin/"},
                 ],
             },
             {
-                "title": "Clientes",
+                "title": "Gestión",
                 "items": [
-                    {"title": "Ver clientes",    "icon": "business",   "link": "/admin/licenses/client/",
+                    {"title": "Clientes",  "icon": "business", "link": "/admin/licenses/client/",
                      "permission": _can_view("licenses.view_client")},
-                    {"title": "Agregar cliente", "icon": "person_add", "link": "/admin/licenses/client/add/",
-                     "permission": _can("licenses.add_client")},
-                ],
-            },
-            {
-                "title": "Licencias",
-                "items": [
-                    {"title": "Ver licencias",    "icon": "key",      "link": "/admin/licenses/license/",
+                    {"title": "Licencias", "icon": "key",      "link": "/admin/licenses/license/",
                      "permission": _can_view("licenses.view_license")},
-                    {"title": "Agregar licencia", "icon": "add_card", "link": "/admin/licenses/license/add/",
-                     "permission": _can("licenses.add_license")},
-                ],
-            },
-            {
-                "title": "Usuarios",
-                "items": [
-                    {"title": "Ver usuarios",    "icon": "people",     "link": "/admin/auth/user/",
+                    {"title": "Usuarios",  "icon": "people",   "link": "/admin/auth/user/",
                      "permission": _can_view("auth.view_user")},
-                    {"title": "Agregar usuario", "icon": "person_add", "link": "/admin/auth/user/add/",
-                     "permission": _can("auth.add_user")},
                 ],
             },
             {
-                "title": "Auditoría",
+                "title": "Seguridad",
                 "items": [
-                    {"title": "Audit Log", "icon": "history", "link": "/admin/licenses/auditlog/"},
+                    {"title": "Auditoría", "icon": "history", "link": "/admin/licenses/auditlog/",
+                     "permission": _can_view("licenses.view_auditlog")},
                 ],
             },
         ],
