@@ -1,5 +1,5 @@
 """
-conftest.py — Setup de pytest-django para el servidor central.
+conftest.py — Setup de pytest-django compartido para Fase 2 y Fase 3.
 """
 import django
 import pytest
@@ -10,7 +10,7 @@ def pytest_configure():
     if not settings.configured:
         settings.configure(
             DEBUG=True,
-            SECRET_KEY="test-secret-key-servidor",
+            SECRET_KEY="test-secret-key-compartido",
             INSTALLED_APPS=[
                 "unfold",
                 "unfold.contrib.filters",
@@ -22,8 +22,10 @@ def pytest_configure():
                 "django.contrib.staticfiles",
                 "rest_framework",
                 "licenses",
+                "license_system",
             ],
             MIDDLEWARE=[
+                "license_system.license_middleware.LicenseMiddleware",
                 "django.middleware.security.SecurityMiddleware",
                 "django.contrib.sessions.middleware.SessionMiddleware",
                 "django.middleware.common.CommonMiddleware",
@@ -48,14 +50,30 @@ def pytest_configure():
                     ],
                 },
             }],
-            ROOT_URLCONF="config.urls",
+            ROOT_URLCONF="test_urls",
             STATIC_URL="/static/",
             DEFAULT_AUTO_FIELD="django.db.models.BigAutoField",
             USE_TZ=True,
             TIME_ZONE="America/Bogota",
 
-            # Sistema de licencias
-            LICENSE_SECRET_KEY="TEST_SECRET_FASE3",
+            # Sistema de licencias — cliente (Fase 2)
+            LICENSE_SECRET_KEY="TEST_SECRET_FASE2",
+            LICENSE_TOKEN_PATH="/tmp/test-license.tok",
+            LICENSE_SERVER_URL="",
+            LICENSE_API_KEY="",
+            LICENSE_MAX_OFFLINE_DAYS=30,
+            LICENSE_HTTP_TIMEOUT=5.0,
+            LICENSE_EXEMPT_URLS=[
+                "/license/",
+                "/static/",
+                "/media/",
+                "/favicon.ico",
+                "/robots.txt",
+                "/admin/",
+                "/api/v1/",
+            ],
+
+            # Sistema de licencias — servidor central (Fase 3)
             LICENSE_AGENT_API_KEY="test-agent-key-fase3",
             LICENSE_COMMERCIAL_DAYS=365,
             LICENSE_TRIAL_DAYS=30,
