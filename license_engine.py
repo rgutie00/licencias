@@ -278,7 +278,14 @@ class LicenseEngine:
 
             if response.status_code == 200:
                 data = response.json()
-                expiry = datetime.fromisoformat(data["expiry_date"])
+                try:
+                    expiry = datetime.fromisoformat(data["expiry_date"])
+                except (KeyError, ValueError) as e:
+                    logger.error("Respuesta 200 sin expiry_date válido: %s", e)
+                    return LicenseResult(
+                        status="EXPIRED",
+                        message="Respuesta inválida del servidor central.",
+                    )
                 delta = max((expiry - datetime.now(timezone.utc)).days, 0)
                 return LicenseResult(
                     status="VALID",

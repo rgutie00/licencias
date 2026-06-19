@@ -16,7 +16,11 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-import psutil
+try:
+    import psutil
+except ImportError:
+    psutil = None  # Tests de psutil se saltean si no está instalado
+
 import pytest
 
 from license_engine import LicenseEngine, LicenseResult
@@ -325,6 +329,18 @@ class TestValidateOffline:
         result = engine.validate_offline(token)
         assert result.status == "VALID"
 
+    def test_limite_offline_exactamente_en_limite_es_valido(self, engine):
+        """Exactamente en el límite (30 días) → VALID (la condición es >, no >=)."""
+        last_check = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+        expiry = (datetime.now(timezone.utc) + timedelta(days=365)).isoformat()
+        token = {
+            "expiry": expiry,
+            "last_online_check": last_check,
+            "license_type": "commercial",
+        }
+        result = engine.validate_offline(token)
+        assert result.status == "VALID"
+
     def test_vence_hoy_boundary(self, engine, recent_check):
         """Licencia que vence exactamente hoy (futuro cercano) → VALID."""
         expiry = (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat()
@@ -622,6 +638,15 @@ class TestValidateOnline:
         result = engine_sin_url.validate_online(FAKE_MAC, "XXXX-XXXX-XXXX-XXXX", FAKE_NIT)
         assert result is None
 
+    def test_respuesta_200_sin_expiry_date_retorna_expired(self, online_engine):
+        """Si el servidor responde 200 pero sin expiry_date, no debe explotar."""
+        with patch("httpx.post", return_value=self._mock_response(200, {"valid": True})):
+            result = online_engine.validate_online(FAKE_MAC, "XXXX-XXXX-XXXX-XXXX", FAKE_NIT)
+
+        assert result is not None
+        assert result.status == "EXPIRED"
+        assert "inválida" in result.message or "invalida" in result.message.lower()
+
 
 # ─────────────────────────────────────────────────────────────
 #  11. GET SERVER MAC (psutil mock)
@@ -629,6 +654,8 @@ class TestValidateOnline:
 
 class TestGetServerMac:
     """Prueba get_server_mac() mockeando psutil.net_if_addrs."""
+
+    pytestmark = pytest.mark.skipif(psutil is None, reason="psutil no instalado")
 
     def _addr(self, family, address):
         """Crea un mock de snic (psutil address namedtuple)."""
