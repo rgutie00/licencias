@@ -353,6 +353,20 @@ class TestValidateOffline:
         assert result.status == "VALID"
         assert result.license_type == "trial"
 
+    def test_last_check_malformado_usa_fallback(self, engine):
+        """last_online_check con formato inválido → usa 2000-01-01 como fallback.
+        El sistema no debe explotar; debe continuar con la validación normal."""
+        expiry = (datetime.now(timezone.utc) + timedelta(days=365)).isoformat()
+        token = {
+            "expiry": expiry,
+            "last_online_check": "esto-no-es-una-fecha-valida",
+            "license_type": "commercial",
+        }
+        result = engine.validate_offline(token)
+        # Con last_check = 2000-01-01, offline_days ≈ 9000 > 30 → EXPIRED
+        assert result.status == "EXPIRED"
+        assert "offline" in result.message.lower()
+
 
 # ─────────────────────────────────────────────────────────────
 #  6. VALIDACIÓN COMPLETA (validate())
