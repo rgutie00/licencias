@@ -16,6 +16,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import psutil
 import pytest
 
 from license_engine import LicenseEngine, LicenseResult
@@ -620,3 +621,71 @@ class TestValidateOnline:
         )
         result = engine_sin_url.validate_online(FAKE_MAC, "XXXX-XXXX-XXXX-XXXX", FAKE_NIT)
         assert result is None
+
+
+# ─────────────────────────────────────────────────────────────
+#  11. GET SERVER MAC (psutil mock)
+# ─────────────────────────────────────────────────────────────
+
+class TestGetServerMac:
+    """Prueba get_server_mac() mockeando psutil.net_if_addrs."""
+
+    def _addr(self, family, address):
+        """Crea un mock de snic (psutil address namedtuple)."""
+        a = MagicMock()
+        a.family = family
+        a.address = address
+        return a
+
+    def test_retorna_primera_mac_valida(self, engine):
+        fake_addrs = {
+            "eth0": [self._addr(psutil.AF_LINK, "AA:BB:CC:DD:EE:FF")],
+        }
+        with patch("psutil.net_if_addrs", return_value=fake_addrs):
+            mac = engine.get_server_mac()
+        assert mac == "AABBCCDDEEFF"
+
+    def test_ignora_loopback(self, engine):
+        fake_addrs = {
+            "lo":   [self._addr(psutil.AF_LINK, "00:00:00:00:00:00")],
+            "eth0": [self._addr(psutil.AF_LINK, "AA:BB:CC:DD:EE:FF")],
+        }
+        with patch("psutil.net_if_addrs", return_value=fake_addrs):
+            mac = engine.get_server_mac()
+        assert mac == "AABBCCDDEEFF"
+
+    def test_ignora_mac_nula(self, engine):
+        fake_addrs = {
+            "eth0": [
+                self._addr(psutil.AF_LINK, "00:00:00:00:00:00"),
+                self._addr(psutil.AF_LINK, "AA:BB:CC:DD:EE:FF"),
+            ],
+        }
+        with patch("psutil.net_if_addrs", return_value=fake_addrs):
+            mac = engine.get_server_mac()
+        assert mac == "AABBCCDDEEFF"
+
+    def test_ignora_familia_no_link(self, engine):
+        import socket
+        fake_addrs = {
+            "eth0": [
+                self._addr(socket.AF_INET, "192.168.1.1"),   # IP, no MAC
+                self._addr(psutil.AF_LINK, "AA:BB:CC:DD:EE:FF"),
+            ],
+        }
+        with patch("psutil.net_if_addrs", return_value=fake_addrs):
+            mac = engine.get_server_mac()
+        assert mac == "AABBCCDDEEFF"
+
+    def test_sin_interfaces_validas_lanza_error(self, engine):
+        fake_addrs = {
+            "lo": [self._addr(psutil.AF_LINK, "00:00:00:00:00:00")],
+        }
+        with patch("psutil.net_if_addrs", return_value=fake_addrs):
+            with pytest.raises(RuntimeError, match="interfaz de red"):
+                engine.get_server_mac()
+
+    def test_sin_interfaces_lanza_error(self, engine):
+        with patch("psutil.net_if_addrs", return_value={}):
+            with pytest.raises(RuntimeError):
+                engine.get_server_mac()
