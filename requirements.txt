@@ -1,0 +1,16 @@
+# requirements.txt — Servidor Central de Licencias (runtime de producción)
+# Instalar con: pip install -r requirements.txt
+
+# Django core
+Django==6.0.5
+djangorestframework==3.17.1
+
+# Admin UI moderna
+django-unfold==0.94.0
+
+# Base de datos
+psycopg2-binary==2.9.12      # PostgreSQL (producción)
+dj-database-url==3.1.2        # Parsear DATABASE_URL
+
+# Configuración por entorno
+python-dotenv==1.0.1         # Carga .env en desarrollo

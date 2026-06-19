@@ -5,12 +5,52 @@ Configuración de Django para el servidor que gestiona todas las licencias.
 import os
 from pathlib import Path
 
+from django.core.exceptions import ImproperlyConfigured
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Carga variables desde un archivo .env local si está disponible (solo dev).
+# En producción las variables vienen del entorno real del servidor.
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv(BASE_DIR / ".env")
+except ImportError:
+    pass
+
 # ── Seguridad ────────────────────────────────────────────────────────────────
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-secret-key-cambiar-en-produccion")
-DEBUG = os.environ.get("DEBUG", "True") == "True"
+# DEBUG por defecto False: producción es el caso seguro, desarrollo se activa
+# explícitamente con DEBUG=True en el entorno.
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+
+
+def _secret(name, dev_default):
+    """Lee un secreto del entorno. En producción (DEBUG=False) es obligatorio:
+    si falta, la app no arranca en vez de usar un valor débil."""
+    value = os.environ.get(name)
+    if value:
+        return value
+    if DEBUG:
+        return dev_default
+    raise ImproperlyConfigured(
+        f"La variable de entorno {name} es obligatoria en producción (DEBUG=False)."
+    )
+
+
+SECRET_KEY = _secret("DJANGO_SECRET_KEY", "dev-secret-key-solo-desarrollo")
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+
+# Endurecimiento HTTPS — solo activo en producción (DEBUG=False).
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000          # 1 año
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    X_FRAME_OPTIONS = "DENY"
 
 # ── Apps ─────────────────────────────────────────────────────────────────────
 INSTALLED_APPS = [
@@ -96,12 +136,13 @@ REST_FRAMEWORK = {
 }
 
 # ── Sistema de Licencias ─────────────────────────────────────────────────────
-# CRÍTICO: debe ser la misma que LICENSE_SECRET_KEY en el proyecto cliente
-LICENSE_SECRET_KEY = os.environ.get("LICENSE_SECRET_KEY", "CHANGE_IN_PRODUCTION")
+# CRÍTICO: debe ser la misma que LICENSE_SECRET_KEY en el proyecto cliente.
+# Obligatoria en producción (firma las licencias); en dev usa un valor de prueba.
+LICENSE_SECRET_KEY = _secret("LICENSE_SECRET_KEY", "dev-license-secret-solo-desarrollo")
 VERSION_SALT = b"v1.0"
 
 # API Key que deben enviar los agentes clientes
-LICENSE_AGENT_API_KEY = os.environ.get("LICENSE_AGENT_API_KEY", "dev-agent-key-cambiar")
+LICENSE_AGENT_API_KEY = _secret("LICENSE_AGENT_API_KEY", "dev-agent-key-solo-desarrollo")
 
 # Duración de licencias (días)
 LICENSE_COMMERCIAL_DAYS = int(os.environ.get("LICENSE_COMMERCIAL_DAYS", "365"))

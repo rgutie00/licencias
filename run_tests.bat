@@ -20,7 +20,7 @@ if errorlevel 1 (
 
 REM Instalar dependencias si no están
 echo  [1/3] Instalando dependencias...
-pip install -r requirements_fase1.txt -q
+pip install -r requirements-dev.txt -q
 if errorlevel 1 (
     echo  [ERROR] Falló la instalación de dependencias.
     pause
