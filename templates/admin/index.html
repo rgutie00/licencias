@@ -1,0 +1,218 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<style>
+  /* ── Consola de credenciales — estilos del panel de inicio ───────────────── */
+  .lz-wrap{
+    --ink-0:#0B1220; --ink-1:#1E293B; --ink-2:#334155;
+    --line:#E2E8F0; --muted:#94A3B8; --ok:#10B981;
+    --mono:ui-monospace,"Cascadia Code","Cascadia Mono",Consolas,"SF Mono",monospace;
+    max-width:1180px; margin:0 auto; padding:4px 0 48px;
+    color:#0F172A;
+  }
+  .dark .lz-wrap{ color:#E2E8F0; --line:#334155; }
+
+  /* Credencial */
+  .lz-cred{
+    position:relative; overflow:hidden; border-radius:20px;
+    background:linear-gradient(135deg,var(--ink-0) 0%,var(--ink-1) 70%);
+    color:#F8FAFC; padding:30px 34px;
+    box-shadow:0 22px 60px -28px rgba(2,8,23,.65);
+    animation:lz-rise .5s cubic-bezier(.16,1,.3,1) both;
+  }
+  .lz-cred__eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.32em;
+    text-transform:uppercase; color:#64748B;
+  }
+  .lz-cred__id{ display:flex; align-items:baseline; gap:14px; margin-top:8px; flex-wrap:wrap; }
+  .lz-cred__name{ font-size:30px; font-weight:700; letter-spacing:-.01em; line-height:1; }
+  .lz-cred__mail{ font-family:var(--mono); font-size:13px; color:#94A3B8; }
+  .lz-cred__strip{
+    display:flex; gap:34px; flex-wrap:wrap; margin-top:24px;
+    padding-top:18px; border-top:1px solid rgba(148,163,184,.18);
+    font-family:var(--mono); font-size:12px;
+  }
+  .lz-cred__strip dt{ color:#64748B; letter-spacing:.12em; text-transform:uppercase; font-size:10px; }
+  .lz-cred__strip dd{ margin:3px 0 0; color:#E2E8F0; font-size:13px; }
+
+  /* Badge de clearance */
+  .lz-badge{
+    position:absolute; top:30px; right:34px;
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 16px; border-radius:999px; font-weight:600; font-size:13px;
+    letter-spacing:.04em; border:1px solid transparent;
+  }
+  .lz-badge::before{ content:""; width:8px; height:8px; border-radius:50%; }
+  .lz-cred--super .lz-badge{ color:#FCD34D; background:rgba(251,191,36,.12); border-color:rgba(251,191,36,.4); }
+  .lz-cred--super .lz-badge::before{ background:#FBBF24; box-shadow:0 0 12px #FBBF24; }
+  .lz-cred--staff .lz-badge{ color:#5EEAD4; background:rgba(45,212,191,.12); border-color:rgba(45,212,191,.4); }
+  .lz-cred--staff .lz-badge::before{ background:#2DD4BF; box-shadow:0 0 12px #2DD4BF; }
+  .lz-cred--user  .lz-badge{ color:#CBD5E1; background:rgba(148,163,184,.14); border-color:rgba(148,163,184,.4); }
+  .lz-cred--user  .lz-badge::before{ background:#94A3B8; }
+
+  /* Motivo: dentado de llave */
+  .lz-keycut{ position:absolute; right:-10px; bottom:-26px; opacity:.10; pointer-events:none; }
+
+  /* Encabezado de sección */
+  .lz-h{ display:flex; align-items:baseline; justify-content:space-between; gap:16px;
+    margin:36px 4px 14px; }
+  .lz-h__t{ font-size:15px; font-weight:700; letter-spacing:-.01em; }
+  .lz-h__legend{ font-family:var(--mono); font-size:11px; color:var(--muted);
+    letter-spacing:.06em; }
+
+  /* Matriz de permisos */
+  .lz-matrix{ border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#fff; }
+  .dark .lz-matrix{ background:#0F172A; }
+  .lz-row{ display:grid; grid-template-columns:1.4fr repeat(4,.7fr) 1.3fr;
+    align-items:center; gap:8px; padding:16px 20px; border-top:1px solid var(--line); }
+  .lz-row:first-child{ border-top:0; }
+  .lz-row--head{ background:#F8FAFC; padding:10px 20px;
+    font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--muted); }
+  .dark .lz-row--head{ background:#0B1220; }
+  .lz-mod{ display:flex; align-items:center; gap:11px; font-weight:600; font-size:14px; }
+  .lz-mod .material-symbols-outlined{ font-size:20px; color:var(--ink-2); }
+  .dark .lz-mod .material-symbols-outlined{ color:#94A3B8; }
+
+  .lz-cap{ display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:500; }
+  .lz-cap--on{ color:var(--ok); }
+  .lz-cap--off{ color:var(--muted); }
+  .lz-cap .material-symbols-outlined{ font-size:17px; }
+
+  .lz-acts{ display:flex; gap:8px; justify-content:flex-end; }
+  .lz-btn{ display:inline-flex; align-items:center; gap:5px; padding:7px 13px;
+    border-radius:9px; font-size:12.5px; font-weight:600; text-decoration:none;
+    border:1px solid var(--line); color:#334155; transition:transform .12s,border-color .12s; }
+  .lz-btn:hover{ transform:translateY(-1px); border-color:#94A3B8; }
+  .lz-btn .material-symbols-outlined{ font-size:16px; }
+  .lz-btn--new{ background:var(--ink-0); color:#fff; border-color:var(--ink-0); }
+  .lz-btn--new:hover{ background:var(--ink-1); }
+  .dark .lz-btn{ color:#CBD5E1; }
+
+  /* Tiles de métricas */
+  .lz-tiles{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .lz-tile{ border:1px solid var(--line); border-radius:16px; padding:20px 22px; background:#fff;
+    animation:lz-rise .5s cubic-bezier(.16,1,.3,1) both; }
+  .dark .lz-tile{ background:#0F172A; }
+  .lz-tile__n{ font-family:var(--mono); font-size:34px; font-weight:700; line-height:1;
+    letter-spacing:-.02em; }
+  .lz-tile__l{ margin-top:8px; font-size:12px; color:var(--muted); letter-spacing:.03em; }
+  .lz-tile__bar{ height:3px; border-radius:3px; margin-top:14px; background:var(--ink-0); width:42px; }
+  .lz-tile:nth-child(2) .lz-tile__bar{ background:#2DD4BF; }
+  .lz-tile:nth-child(3) .lz-tile__bar{ background:#6366F1; }
+  .lz-tile:nth-child(4) .lz-tile__bar{ background:#FBBF24; }
+
+  @keyframes lz-rise{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+  .lz-tile:nth-child(1){ animation-delay:.04s; } .lz-tile:nth-child(2){ animation-delay:.10s; }
+  .lz-tile:nth-child(3){ animation-delay:.16s; } .lz-tile:nth-child(4){ animation-delay:.22s; }
+
+  @media (max-width:880px){
+    .lz-row{ grid-template-columns:1fr 1fr; row-gap:10px; }
+    .lz-row--head{ display:none; }
+    .lz-cap::after{ content:attr(data-l); color:var(--muted); font-size:11px; }
+    .lz-acts{ grid-column:1 / -1; justify-content:flex-start; }
+    .lz-tiles{ grid-template-columns:repeat(2,1fr); }
+    .lz-badge{ position:static; margin-top:16px; }
+  }
+  @media (prefers-reduced-motion:reduce){ .lz-cred,.lz-tile{ animation:none; } }
+</style>
+
+<div class="lz-wrap">
+
+  {# ── Credencial de acceso del operador ── #}
+  <div class="lz-cred lz-cred--{{ lz_clearance.code }}">
+    <div class="lz-eyebrow lz-cred__eyebrow">Credencial de acceso · Servidor de Licencias</div>
+    <div class="lz-cred__id">
+      <span class="lz-cred__name">{{ lz_user.get_full_name|default:lz_user.username }}</span>
+      <span class="lz-cred__mail">{{ lz_user.email|default:"sin correo registrado" }}</span>
+    </div>
+
+    <span class="lz-badge">{{ lz_clearance.label }}</span>
+
+    <dl class="lz-cred__strip">
+      <div><dt>Nivel</dt><dd>{{ lz_clearance.tagline }}</dd></div>
+      <div><dt>Usuario</dt><dd>{{ lz_user.username }}</dd></div>
+      <div><dt>Sesión</dt><dd>{{ lz_now|date:"d M Y · H:i" }}</dd></div>
+      <div><dt>Zona</dt><dd>América/Bogotá</dd></div>
+    </dl>
+
+    <svg class="lz-keycut" width="220" height="150" viewBox="0 0 220 150" fill="none" aria-hidden="true">
+      <circle cx="46" cy="75" r="30" stroke="#fff" stroke-width="9"/>
+      <rect x="74" y="66" width="132" height="18" fill="#fff"/>
+      <rect x="120" y="84" width="14" height="20" fill="#fff"/>
+      <rect x="150" y="84" width="14" height="28" fill="#fff"/>
+      <rect x="180" y="84" width="14" height="16" fill="#fff"/>
+    </svg>
+  </div>
+
+  {# ── Matriz de permisos CRUD por módulo ── #}
+  <div class="lz-h">
+    <span class="lz-h__t">Permisos por módulo</span>
+    <span class="lz-h__legend">{{ lz_clearance.label }} · acciones disponibles según tu perfil</span>
+  </div>
+
+  <div class="lz-matrix">
+    <div class="lz-row lz-row--head">
+      <span>Módulo</span><span>Ver</span><span>Crear</span><span>Editar</span><span>Borrar</span>
+      <span style="text-align:right">Acciones</span>
+    </div>
+
+    {% for m in lz_modules %}
+    <div class="lz-row">
+      <span class="lz-mod">
+        <span class="material-symbols-outlined">{{ m.icon }}</span>{{ m.name }}
+      </span>
+
+      <span class="lz-cap {% if m.caps.view %}lz-cap--on{% else %}lz-cap--off{% endif %}" data-l="Ver">
+        <span class="material-symbols-outlined">{% if m.caps.view %}check_circle{% else %}lock{% endif %}</span>
+      </span>
+      <span class="lz-cap {% if m.caps.add %}lz-cap--on{% else %}lz-cap--off{% endif %}" data-l="Crear">
+        <span class="material-symbols-outlined">{% if m.caps.add %}check_circle{% else %}lock{% endif %}</span>
+      </span>
+      <span class="lz-cap {% if m.caps.change %}lz-cap--on{% else %}lz-cap--off{% endif %}" data-l="Editar">
+        <span class="material-symbols-outlined">{% if m.caps.change %}check_circle{% else %}lock{% endif %}</span>
+      </span>
+      <span class="lz-cap {% if m.caps.delete %}lz-cap--on{% else %}lz-cap--off{% endif %}" data-l="Borrar">
+        <span class="material-symbols-outlined">{% if m.caps.delete %}check_circle{% else %}lock{% endif %}</span>
+      </span>
+
+      <span class="lz-acts">
+        {% if m.caps.view %}
+          <a class="lz-btn" href="{{ m.url }}">
+            <span class="material-symbols-outlined">visibility</span>Ver
+          </a>
+        {% endif %}
+        {% if m.caps.add and m.add_url %}
+          <a class="lz-btn lz-btn--new" href="{{ m.add_url }}">
+            <span class="material-symbols-outlined">add</span>Nuevo
+          </a>
+        {% endif %}
+      </span>
+    </div>
+    {% endfor %}
+  </div>
+
+  {# ── Métricas ── #}
+  <div class="lz-h"><span class="lz-h__t">Estado del servidor</span></div>
+  <div class="lz-tiles">
+    <div class="lz-tile">
+      <div class="lz-tile__n">{{ lz_stats.clients }}</div>
+      <div class="lz-tile__l">Clientes registrados</div><div class="lz-tile__bar"></div>
+    </div>
+    <div class="lz-tile">
+      <div class="lz-tile__n">{{ lz_stats.active_licenses }}</div>
+      <div class="lz-tile__l">Licencias activas</div><div class="lz-tile__bar"></div>
+    </div>
+    <div class="lz-tile">
+      <div class="lz-tile__n">{{ lz_stats.audit_events }}</div>
+      <div class="lz-tile__l">Eventos de auditoría</div><div class="lz-tile__bar"></div>
+    </div>
+    <div class="lz-tile">
+      <div class="lz-tile__n">{{ lz_stats.operators }}</div>
+      <div class="lz-tile__l">Operadores con acceso</div><div class="lz-tile__bar"></div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
