@@ -1,0 +1,79 @@
+{% load i18n static %}<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sesión cerrada · Servidor de Licencias</title>
+  <link rel="stylesheet" href="{% static 'unfold/fonts/inter/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'unfold/fonts/material-symbols/styles.css' %}">
+  <style>
+    :root{
+      color-scheme: light;
+      --ink-0:#0B1220; --ink-1:#1E293B; --line:#E2E8F0; --muted:#94A3B8; --teal:#2DD4BF;
+      --mono:ui-monospace,"Cascadia Code","Cascadia Mono",Consolas,"SF Mono",monospace;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; margin:0; }
+    body{
+      font-family:"Inter",system-ui,sans-serif; color:#0F172A;
+      background:#F1F5F9; display:grid; place-items:center; padding:24px;
+    }
+    .lz-card{
+      width:min(440px,100%); background:#fff; border-radius:24px; overflow:hidden;
+      border:1px solid var(--line); box-shadow:0 40px 90px -45px rgba(2,8,23,.55);
+      animation:lz-rise .55s cubic-bezier(.16,1,.3,1) both;
+    }
+    .lz-top{
+      position:relative; overflow:hidden; padding:34px 34px 28px;
+      background:linear-gradient(150deg,var(--ink-0) 0%,var(--ink-1) 80%); color:#F8FAFC;
+    }
+    .lz-mark{ display:flex; align-items:center; gap:12px; }
+    .lz-mark .material-symbols-outlined{
+      font-size:26px; color:var(--ink-0); background:var(--teal);
+      border-radius:10px; padding:7px; box-shadow:0 0 24px -4px var(--teal); }
+    .lz-mark span.t{ font-size:18px; font-weight:700; letter-spacing:-.01em; }
+    .lz-eyebrow{ font-family:var(--mono); font-size:10px; letter-spacing:.32em;
+      text-transform:uppercase; color:#64748B; margin-top:18px; }
+    .lz-keycut{ position:absolute; right:-24px; bottom:-30px; opacity:.10; pointer-events:none; }
+
+    .lz-body{ padding:30px 34px 34px; }
+    .lz-body h1{ font-size:20px; font-weight:700; margin:0 0 8px; letter-spacing:-.01em; }
+    .lz-body p{ margin:0 0 24px; color:var(--muted); font-size:14px; line-height:1.55; }
+    .lz-btn{
+      display:inline-flex; width:100%; align-items:center; justify-content:center; gap:8px;
+      padding:13px 16px; border-radius:11px; background:#0F766E; color:#fff;
+      font-size:14px; font-weight:600; text-decoration:none; transition:transform .12s,background .14s; }
+    .lz-btn:hover{ background:#0D9488; transform:translateY(-1px); }
+    .lz-btn:focus-visible{ outline:3px solid var(--teal); outline-offset:2px; }
+    .lz-btn .material-symbols-outlined{ font-size:18px; }
+
+    @keyframes lz-rise{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+    @media (prefers-reduced-motion:reduce){ .lz-card{ animation:none; } }
+  </style>
+</head>
+<body>
+  <main class="lz-card">
+    <div class="lz-top">
+      <div class="lz-mark">
+        <span class="material-symbols-outlined">key</span>
+        <span class="t">Servidor de Licencias</span>
+      </div>
+      <div class="lz-eyebrow">Sesión finalizada</div>
+      <svg class="lz-keycut" width="200" height="140" viewBox="0 0 200 140" fill="none" aria-hidden="true">
+        <circle cx="44" cy="70" r="28" stroke="#fff" stroke-width="9"/>
+        <rect x="70" y="61" width="120" height="18" fill="#fff"/>
+        <rect x="116" y="79" width="13" height="20" fill="#fff"/>
+        <rect x="146" y="79" width="13" height="26" fill="#fff"/>
+        <rect x="176" y="79" width="13" height="15" fill="#fff"/>
+      </svg>
+    </div>
+    <div class="lz-body">
+      <h1>Cerraste sesión correctamente</h1>
+      <p>Tu sesión en el panel de administración se cerró de forma segura. Vuelve a identificarte para continuar.</p>
+      <a class="lz-btn" href="{% url 'admin:login' %}">
+        <span class="material-symbols-outlined">login</span>Volver a iniciar sesión
+      </a>
+    </div>
+  </main>
+</body>
+</html>
