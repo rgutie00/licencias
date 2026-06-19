@@ -162,7 +162,11 @@ class License(models.Model):
 
     @property
     def is_valid(self) -> bool:
-        return self.status == "active" and self.expiry_date > timezone.now()
+        return (
+            self.status == "active"
+            and self.expiry_date is not None
+            and self.expiry_date > timezone.now()
+        )
 
     @property
     def days_remaining(self) -> int:
