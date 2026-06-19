@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{% static 'unfold/fonts/material-symbols/styles.css' %}">
   <style>
     :root{
+      color-scheme: light;            /* evita que el modo oscuro del SO oscurezca los campos */
       --ink-0:#0B1220; --ink-1:#1E293B; --ink-2:#334155;
       --line:#E2E8F0; --muted:#94A3B8; --teal:#2DD4BF; --sky:#0EA5E9;
       --mono:ui-monospace,"Cascadia Code","Cascadia Mono",Consolas,"SF Mono",monospace;
@@ -63,10 +64,18 @@
     .lz-input input{
       width:100%; padding:12px 14px 12px 42px; font-size:14px; font-family:inherit;
       border:1px solid var(--line); border-radius:11px; background:#F8FAFC;
-      color:#0F172A; transition:border-color .14s,box-shadow .14s,background .14s; }
+      color:#0F172A; -webkit-text-fill-color:#0F172A;
+      transition:border-color .14s,box-shadow .14s,background .14s; }
+    .lz-input input::placeholder{ color:#94A3B8; opacity:1; }
     .lz-input input:focus{
       outline:none; border-color:var(--teal); background:#fff;
       box-shadow:0 0 0 4px rgba(45,212,191,.20); }
+    /* Autocompletado del navegador: mantener fondo claro y texto oscuro */
+    .lz-input input:-webkit-autofill,
+    .lz-input input:-webkit-autofill:focus{
+      -webkit-text-fill-color:#0F172A;
+      -webkit-box-shadow:0 0 0 1000px #F8FAFC inset;
+      caret-color:#0F172A; }
 
     .lz-btn{
       width:100%; margin-top:8px; padding:13px 16px; border:0; border-radius:11px;
