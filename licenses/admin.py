@@ -72,6 +72,11 @@ class ClientAdmin(ModelAdmin):
         }),
     ]
 
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # Editando cliente existente — mac y nit son inmutables
+            return ["id", "mac", "nit", "trial_used", "created_at", "updated_at"]
+        return ["id", "trial_used", "created_at", "updated_at"]  # Creando nuevo
+
     def mac_short(self, obj):
         return f"{obj.mac[:6]}..." if len(obj.mac) > 6 else obj.mac
     mac_short.short_description = "MAC"
@@ -93,6 +98,34 @@ class ClientAdmin(ModelAdmin):
             return mark_safe('<span style="color:#f59e0b">✓ Usada</span>')
         return mark_safe('<span style="color:#64748b">Disponible</span>')
     trial_used_display.short_description = "Prueba"
+
+    # Acción: activar licencia comercial de 1 año para clientes seleccionados
+    @action(description="Activar licencia comercial (1 año)")
+    def activate_manual(self, request, queryset):
+        from datetime import timedelta
+
+        from django.conf import settings
+        from django.utils import timezone
+
+        days = getattr(settings, "LICENSE_COMMERCIAL_DAYS", 365)
+        count = 0
+        for client in queryset:
+            License.objects.filter(client=client, status="active").update(status="expired")
+            expiry = timezone.now() + timedelta(days=days)
+            lic = License.objects.create(
+                client=client,
+                license_type="commercial",
+                status="active",
+                expiry_date=expiry,
+                activated_by=request.user,
+            )
+            AuditLog.log(
+                action="MANUAL_ACTIVATE", result="success",
+                license=lic, client=client, user=request.user,
+                detail={"activated_by": request.user.username, "days": days},
+            )
+            count += 1
+        self.message_user(request, f"{count} licencia(s) comercial(es) activadas (1 año).", messages.SUCCESS)
 
     # Acción: resetear trial_used (solo SuperAdmin)
     @action(description="Resetear prueba gratuita (Solo SuperAdmin)")
@@ -130,6 +163,14 @@ class LicenseAdmin(ModelAdmin):
         "activated_by", "last_validated_at", "revoked_at", "revoked_by",
     ]
     ordering = ["-activated_at"]
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # Editando licencia existente — client y license_type son inmutables
+            return [
+                "id", "client", "license_type", "activated_at",
+                "activated_by", "last_validated_at", "revoked_at", "revoked_by",
+            ]
+        return ["id", "activated_at", "activated_by", "last_validated_at", "revoked_at", "revoked_by"]
 
     fieldsets = [
         ("Licencia", {
@@ -202,12 +243,6 @@ class LicenseAdmin(ModelAdmin):
 
         self.message_user(request, f"{count} licencia(s) extendidas 30 días.", messages.SUCCESS)
 
-    # Acción: activar manualmente una nueva licencia comercial
-    @action(description="Activar nueva licencia comercial (1 año)")
-    def activate_manual(self, request, queryset):
-        # Esta acción opera sobre clientes seleccionados desde LicenseAdmin
-        # pero es más útil desde ClientAdmin — aquí para completitud
-        pass
 
 
 # ── AUDIT LOG ────────────────────────────────────────────────────────────────
