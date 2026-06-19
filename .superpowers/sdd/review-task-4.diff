@@ -1,0 +1,27 @@
+﻿diff --git a/engine_factory.py b/engine_factory.py
+index bc68eb0..e32ea90 100644
+--- a/engine_factory.py
++++ b/engine_factory.py
+@@ -2,21 +2,21 @@
+ engine_factory.py — Fase 2
+ Crea y mantiene una instancia singleton del LicenseEngine
+ configurada con los valores de settings.py de Django.
+ 
+ Separado del middleware para facilitar el mock en tests.
+ """
+ import logging
+ 
+ from django.conf import settings
+ 
+-from .license_engine import LicenseEngine
++from license_engine import LicenseEngine
+ 
+ logger = logging.getLogger("license")
+ 
+ _engine_instance: LicenseEngine | None = None
+ 
+ 
+ def get_engine() -> LicenseEngine:
+     """
+     Retorna el singleton del LicenseEngine.
+     Se crea la primera vez que se llama, configurado con Django settings.

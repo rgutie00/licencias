@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Licencia Activada</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0c10;
+      color: #dce8f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: #111318;
+      border: 1px solid #152515;
+      border-radius: 12px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+    }
+
+    .icon-wrap {
+      width: 64px; height: 64px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 20px;
+      animation: pop 0.4s ease;
+    }
+
+    @keyframes pop {
+      0%   { transform: scale(0.7); opacity: 0; }
+      70%  { transform: scale(1.1); }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #10b981;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.65;
+      margin-bottom: 32px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      width: 100%;
+      padding: 12px 28px;
+      background: #10b981;
+      color: #000;
+      border-radius: 7px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .btn-primary:hover { background: #0ea472; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon-wrap">✅</div>
+    <h1>¡Licencia Activada!</h1>
+    <p>
+      El software ha sido activado correctamente.<br>
+      Ahora puede iniciar sesión con su usuario y contraseña.
+    </p>
+
+    <a href="{{ login_url }}" class="btn-primary">
+      Ir al Login →
+    </a>
+  </div>
+</body>
+</html>

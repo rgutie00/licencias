@@ -1,0 +1,481 @@
+NODE LicenseMiddleware [src=license_middleware.py]
+NODE license_middleware.py [src=license_system/license_middleware.py]
+NODE license_middleware.py — Middleware Django que valida la licencia en cada request [src=license_system/license_middleware.py]
+NODE TestMiddlewareLicenseAttachment [src=test_middleware_views.py]
+NODE license_middleware.py — Fase 2 Intercepta TODOS los requests de Django antes del [src=license_middleware.py]
+NODE LicenseMiddleware [src=license_system/license_middleware.py]
+NODE license_engine.py — Fase 1 Motor criptográfico del sistema de licencias.  Diseño [src=license_system/license_engine.py]
+NODE test_license_engine.py — Fase 1 Tests unitarios del LicenseEngine.  Cómo ejecuta [src=test_license_engine.py]
+NODE license_engine.py [src=license_engine.py]
+NODE LicenseEngine [src=engine_factory.py]
+NODE test_middleware_views.py — Fase 2 Tests de integración del LicenseMiddleware y l [src=test_middleware_views.py]
+NODE LicenseEngine [src=license_system/license_engine.py]
+NODE license_engine.py — Fase 1 Motor criptográfico del sistema de licencias.  Diseño [src=license_engine.py]
+NODE license_engine.py [src=license_system/license_engine.py]
+NODE LicenseEngine [src=license_engine.py]
+NODE test_license_engine.py [src=test_license_engine.py]
+NODE Valida la licencia. Llamado por LicenseMiddleware en cada request.          Orde [src=license_engine.py]
+NODE license_middleware.py [src=license_middleware.py]
+NODE LicenseInline [src=licenses/admin.py]
+NODE .active_license() [src=licenses/models.py]
+NODE get_engine() [src=license_system/engine_factory.py]
+NODE Con ≤7 días restantes se adjunta request.license_warning. [src=test_middleware_views.py]
+NODE ValidateLicenseView [src=licenses/views.py]
+NODE .test_request_license_disponible() [src=test_middleware_views.py]
+NODE engine() [src=test_license_engine.py]
+NODE LicenseResult [src=license_system/license_engine.py]
+NODE Crea un mock del engine que retorna el status dado. [src=test_middleware_views.py]
+NODE TestMiddlewareExemptRoutes [src=test_middleware_views.py]
+NODE TestMiddlewareIPExtraction [src=test_middleware_views.py]
+NODE Con más de 7 días, no debe haber license_warning. [src=test_middleware_views.py]
+NODE ActivateLicenseView [src=licenses/views.py]
+NODE LicenseAdmin [src=licenses/admin.py]
+NODE Middleware de validación de licencias.      Se instancia una sola vez al arranca [src=license_middleware.py]
+NODE TrialLicenseView [src=licenses/views.py]
+NODE .test_license_activate_exenta() [src=test_middleware_views.py]
+NODE .test_license_type_trial() [src=test_license_engine.py]
+NODE Engine con token en directorio temporal. [src=test_license_engine.py]
+NODE mock_engine() [src=test_middleware_views.py]
+NODE TestMiddlewareBlocking [src=test_middleware_views.py]
+NODE Con licencia válida, request.license está disponible en la vista. [src=test_middleware_views.py]
+NODE LicenseResult [src=license_engine.py]
+NODE ._make_engine_with_server() [src=test_middleware_views.py]
+NODE test_middleware_views.py [src=test_middleware_views.py]
+NODE engine_factory.py [src=license_system/engine_factory.py]
+NODE TestLicenseResult [src=test_license_engine.py]
+NODE engine_factory.py [src=engine_factory.py]
+NODE .test_sin_token_retorna_no_license() [src=test_license_engine.py]
+NODE Crea un LicenseResult con valores por defecto. [src=test_middleware_views.py]
+NODE get_engine() [src=engine_factory.py]
+NODE .test_guardar_y_cargar() [src=test_license_engine.py]
+NODE .test_warning_pocos_dias() [src=test_middleware_views.py]
+NODE .test_determinismo_misma_entrada() [src=test_license_engine.py]
+NODE .validate_offline() [src=license_engine.py]
+NODE .validate_online() [src=license_system/license_engine.py]
+NODE .__init__() [src=license_engine.py]
+NODE past_expiry() [src=test_license_engine.py]
+NODE ._is_exempt() [src=license_middleware.py]
+NODE .test_mac_con_dos_puntos() [src=test_license_engine.py]
+NODE TestTokenStorage [src=test_license_engine.py]
+NODE .test_error_obtener_mac() [src=test_license_engine.py]
+NODE Resultado de una validación de licencia.      status posibles:         VALID [src=license_engine.py]
+NODE str [src=licenses/views.py]
+NODE AuditLogAdmin [src=licenses/admin.py]
+NODE .test_ip_directa() [src=test_middleware_views.py]
+NODE .is_valid() [src=license_engine.py]
+NODE .test_campos_requeridos() [src=test_license_engine.py]
+NODE TestExpiredView [src=test_middleware_views.py]
+NODE .test_post_servidor_409_trial_ya_usado() [src=test_middleware_views.py]
+NODE .build_activation_payload() [src=license_engine.py]
+NODE .validate_offline() [src=license_system/license_engine.py]
+NODE .test_token_manipulado() [src=test_license_engine.py]
+NODE .test_mac_ya_normalizada() [src=test_license_engine.py]
+NODE TestValidate [src=test_license_engine.py]
+NODE ._derive_fernet_key() [src=license_engine.py]
+NODE .__str__() [src=licenses/models.py]
+NODE .test_mac_con_puntos() [src=test_license_engine.py]
+NODE .test_secret_diferente_da_clave_diferente() [src=test_license_engine.py]
+NODE test_api.py [src=test_api.py]
+NODE future_expiry() [src=test_license_engine.py]
+NODE .validate_online() [src=license_engine.py]
+NODE .test_client_str() [src=test_api.py]
+NODE .test_delete_token_no_existe() [src=test_license_engine.py]
+NODE .test_token_manipulado_redirige_con_reason() [src=test_middleware_views.py]
+NODE .test_nit_incorrecto() [src=test_license_engine.py]
+NODE .test_online_falla_fallback_offline() [src=test_license_engine.py]
+NODE TestActivateViewGet [src=test_middleware_views.py]
+NODE TestActivateEndpoint [src=test_api.py]
+NODE .test_rollback_de_reloj() [src=test_license_engine.py]
+NODE str [src=license_engine.py]
+NODE .test_genera_formato_correcto() [src=test_license_engine.py]
+NODE ._normalize_mac() [src=license_engine.py]
+NODE .__init__() [src=license_middleware.py]
+NODE .test_post_sin_nombre_retorna_error() [src=test_middleware_views.py]
+NODE .activate_from_response() [src=license_engine.py]
+NODE .test_is_valid_false() [src=test_license_engine.py]
+NODE ._get_ip() [src=license_system/license_middleware.py]
+NODE TestActivateViewPost [src=test_middleware_views.py]
+NODE .test_post_servidor_ok_redirige_a_success() [src=test_middleware_views.py]
+NODE Empresa cliente identificada por la combinación MAC del servidor + NIT.     Una [src=licenses/models.py]
+NODE .__call__() [src=license_middleware.py]
+NODE .delete_token() [src=license_engine.py]
+NODE .test_muestra_pantalla_de_vencimiento() [src=test_middleware_views.py]
+NODE .get_server_mac() [src=license_engine.py]
+NODE .test_token_sin_expiry() [src=test_license_engine.py]
+NODE .test_clave_incorrecta() [src=test_license_engine.py]
+NODE .test_mac_con_espacios() [src=test_license_engine.py]
+NODE admin.py [src=licenses/admin.py]
+NODE TestGenerateKey [src=test_license_engine.py]
+NODE .test_payload_completo_roundtrip() [src=test_license_engine.py]
+NODE .test_rollback_reloj() [src=test_license_engine.py]
+NODE .test_limite_offline_superado() [src=test_license_engine.py]
+NODE .test_muestra_confirmacion() [src=test_middleware_views.py]
+NODE .test_post_sin_nit_retorna_error() [src=test_middleware_views.py]
+NODE .test_login_protegido_sin_licencia() [src=test_middleware_views.py]
+NODE TestVerifyKey [src=test_license_engine.py]
+NODE TestActivationPayload [src=test_license_engine.py]
+NODE Retorna True si la ruta no necesita validación de licencia. [src=license_middleware.py]
+NODE Resultado de una validación de licencia.      status posibles:         VALID [src=license_system/license_engine.py]
+NODE .test_limite_offline_justo() [src=test_license_engine.py]
+NODE TestActivateFromResponse [src=test_license_engine.py]
+NODE .test_get_muestra_reason_tampered() [src=test_middleware_views.py]
+NODE ._get_ip() [src=license_middleware.py]
+NODE TestModels [src=test_api.py]
+NODE .test_guarda_token_correctamente() [src=test_license_engine.py]
+NODE .test_online_actualiza_token() [src=test_license_engine.py]
+NODE .test_licencia_vencida() [src=test_license_engine.py]
+NODE Motor criptográfico del sistema de licencias.      Args:         secret_key: [src=license_engine.py]
+NODE make_result() [src=test_middleware_views.py]
+NODE recent_check() [src=test_license_engine.py]
+NODE .test_get_muestra_formulario() [src=test_middleware_views.py]
+NODE .test_token_vigente_offline() [src=test_license_engine.py]
+NODE .test_licencia_valida_pasa() [src=test_middleware_views.py]
+NODE .test_token_no_existe() [src=test_license_engine.py]
+NODE TestValidateOffline [src=test_license_engine.py]
+NODE .test_post_sin_servidor_configurado_muestra_error() [src=test_middleware_views.py]
+NODE Client [src=licenses/models.py]
+NODE .__str__() [src=license_engine.py]
+NODE .test_tiene_link_al_login() [src=test_middleware_views.py]
+NODE Extrae la IP real del cliente (considera proxies). [src=license_middleware.py]
+NODE bool [src=license_engine.py]
+NODE .test_clave_correcta() [src=test_license_engine.py]
+NODE .test_clock_rollback_redirige_con_reason() [src=test_middleware_views.py]
+NODE .test_token_trial() [src=test_license_engine.py]
+NODE TestValidateEndpoint [src=test_api.py]
+NODE Valida la licencia contra el servidor central.          Returns:             Lic [src=license_engine.py]
+NODE .validate() [src=license_engine.py]
+NODE bool [src=license_middleware.py]
+NODE TestValidators [src=test_api.py]
+NODE Valida la licencia usando solo el token local (sin red).          Comprueba: [src=license_engine.py]
+NODE str [src=license_middleware.py]
+NODE .validate() [src=license_system/license_engine.py]
+NODE .test_nit_normalizado_en_payload() [src=test_license_engine.py]
+NODE .__call__() [src=license_system/license_middleware.py]
+NODE TestNormalizeMac [src=test_license_engine.py]
+NODE .test_licencia_vigente() [src=test_license_engine.py]
+NODE .save_token() [src=license_engine.py]
+NODE TestTrialEndpoint [src=test_api.py]
+NODE .test_mac_con_guiones() [src=test_license_engine.py]
+NODE .test_ip_con_proxy() [src=test_middleware_views.py]
+NODE .test_token_texto_plano() [src=test_license_engine.py]
+NODE .test_mac_formatos_equivalentes() [src=test_license_engine.py]
+NODE future_check() [src=test_license_engine.py]
+NODE Check en el futuro → simula rollback de reloj. [src=test_license_engine.py]
+NODE .test_static_exento() [src=test_middleware_views.py]
+NODE .test_vence_hoy_boundary() [src=test_license_engine.py]
+NODE ClientAdmin [src=licenses/admin.py]
+NODE .test_clave_vacia() [src=test_license_engine.py]
+NODE Helper: crea y guarda un token válido. [src=test_license_engine.py]
+NODE .__init__() [src=license_system/license_middleware.py]
+NODE .test_api_protegida_sin_licencia() [src=test_middleware_views.py]
+NODE models.py [src=licenses/models.py]
+NODE .generate_key() [src=license_engine.py]
+NODE .test_delete_token() [src=test_license_engine.py]
+NODE .test_str() [src=test_license_engine.py]
+NODE .__str__() [src=license_system/license_engine.py]
+NODE .test_token_archivo_vacio() [src=test_license_engine.py]
+NODE .test_sin_licencia_redirige_a_activate() [src=test_middleware_views.py]
+NODE TestSuccessView [src=test_middleware_views.py]
+NODE .test_clave_valida_en_payload() [src=test_license_engine.py]
+NODE .test_token_archivo_corrupto() [src=test_license_engine.py]
+NODE .test_nit_diferente_da_clave_diferente() [src=test_license_engine.py]
+NODE .test_token_mac_diferente_tampered() [src=test_license_engine.py]
+NODE .test_mac_incorrecta() [src=test_license_engine.py]
+NODE .verify_key() [src=license_engine.py]
+NODE .test_mac_diferente_da_clave_diferente() [src=test_license_engine.py]
+NODE .test_nit_normalizado() [src=test_license_engine.py]
+NODE .load_token() [src=license_engine.py]
+NODE .test_ip_sin_meta() [src=test_middleware_views.py]
+NODE views.py [src=licenses/views.py]
+NODE .test_mac_minusculas() [src=test_license_engine.py]
+NODE .test_post_sin_conexion_muestra_error() [src=test_middleware_views.py]
+NODE .is_valid() [src=license_system/license_engine.py]
+NODE .test_licencia_vencida_redirige_a_expired() [src=test_middleware_views.py]
+NODE .test_sin_warning_dias_suficientes() [src=test_middleware_views.py]
+NODE .test_token_vencido_offline() [src=test_license_engine.py]
+NODE .test_get_muestra_reason_clock() [src=test_middleware_views.py]
+NODE .test_favicon_exento() [src=test_middleware_views.py]
+NODE .test_mac_mixta() [src=test_license_engine.py]
+NODE .test_is_valid_true() [src=test_license_engine.py]
+NODE .test_tiene_link_a_activate() [src=test_middleware_views.py]
+NODE make_token() [src=test_license_engine.py]
+EDGE TestMiddlewareLicenseAttachment --uses [INFERRED]--> LicenseResult
+EDGE TestMiddlewareLicenseAttachment --uses [INFERRED]--> LicenseMiddleware
+EDGE TestMiddlewareLicenseAttachment --contains [EXTRACTED]--> test_middleware_views.py
+EDGE TestMiddlewareLicenseAttachment --method [EXTRACTED]--> .test_request_license_disponible()
+EDGE TestMiddlewareLicenseAttachment --method [EXTRACTED]--> .test_sin_warning_dias_suficientes()
+EDGE TestMiddlewareLicenseAttachment --method [EXTRACTED]--> .test_warning_pocos_dias()
+EDGE test_license_engine.py — Fase 1 Tests unitarios del LicenseEngine.  Cómo ejecuta --rationale_for [EXTRACTED]--> test_license_engine.py
+EDGE test_middleware_views.py — Fase 2 Tests de integración del LicenseMiddleware y l --rationale_for [EXTRACTED]--> test_middleware_views.py
+EDGE test_middleware_views.py --imports_from [EXTRACTED]--> license_engine.py
+EDGE test_middleware_views.py --imports [EXTRACTED]--> LicenseResult
+EDGE test_middleware_views.py --imports_from [EXTRACTED]--> license_middleware.py
+EDGE test_middleware_views.py --imports [EXTRACTED]--> LicenseMiddleware
+EDGE test_middleware_views.py --contains [EXTRACTED]--> make_result()
+EDGE test_middleware_views.py --contains [EXTRACTED]--> mock_engine()
+EDGE test_middleware_views.py --contains [EXTRACTED]--> TestActivateViewGet
+EDGE test_middleware_views.py --contains [EXTRACTED]--> TestActivateViewPost
+EDGE test_middleware_views.py --contains [EXTRACTED]--> TestExpiredView
+EDGE test_middleware_views.py --contains [EXTRACTED]--> TestMiddlewareBlocking
+EDGE test_middleware_views.py --contains [EXTRACTED]--> TestMiddlewareExemptRoutes
+EDGE test_middleware_views.py --contains [EXTRACTED]--> TestMiddlewareIPExtraction
+EDGE test_middleware_views.py --contains [EXTRACTED]--> TestSuccessView
+EDGE .test_sin_warning_dias_suficientes() --calls [EXTRACTED]--> mock_engine()
+EDGE .test_sin_warning_dias_suficientes() --rationale_for [EXTRACTED]--> Con más de 7 días, no debe haber license_warning.
+EDGE .test_request_license_disponible() --calls [INFERRED]--> Client
+EDGE .test_request_license_disponible() --calls [EXTRACTED]--> mock_engine()
+EDGE .test_request_license_disponible() --rationale_for [EXTRACTED]--> Con licencia válida, request.license está disponible en la vista.
+EDGE .test_warning_pocos_dias() --calls [EXTRACTED]--> mock_engine()
+EDGE .test_warning_pocos_dias() --rationale_for [EXTRACTED]--> Con ≤7 días restantes se adjunta request.license_warning.
+EDGE test_license_engine.py --imports_from [EXTRACTED]--> license_engine.py
+EDGE test_license_engine.py --imports [EXTRACTED]--> LicenseEngine
+EDGE test_license_engine.py --contains [EXTRACTED]--> engine()
+EDGE test_license_engine.py --contains [EXTRACTED]--> future_check()
+EDGE test_license_engine.py --contains [EXTRACTED]--> future_expiry()
+EDGE test_license_engine.py --contains [EXTRACTED]--> make_token()
+EDGE test_license_engine.py --contains [EXTRACTED]--> past_expiry()
+EDGE test_license_engine.py --contains [EXTRACTED]--> recent_check()
+EDGE test_license_engine.py --contains [EXTRACTED]--> TestActivateFromResponse
+EDGE test_license_engine.py --contains [EXTRACTED]--> TestActivationPayload
+EDGE test_license_engine.py --contains [EXTRACTED]--> TestGenerateKey
+EDGE test_license_engine.py --contains [EXTRACTED]--> TestLicenseResult
+EDGE test_license_engine.py --contains [EXTRACTED]--> TestNormalizeMac
+EDGE test_license_engine.py --contains [EXTRACTED]--> TestTokenStorage
+EDGE test_license_engine.py --contains [EXTRACTED]--> TestValidate
+EDGE test_license_engine.py --contains [EXTRACTED]--> TestValidateOffline
+EDGE test_license_engine.py --contains [EXTRACTED]--> TestVerifyKey
+EDGE LicenseMiddleware --contains [EXTRACTED]--> license_middleware.py
+EDGE LicenseMiddleware --method [EXTRACTED]--> .__call__()
+EDGE LicenseMiddleware --method [EXTRACTED]--> ._get_ip()
+EDGE LicenseMiddleware --method [EXTRACTED]--> .__init__()
+EDGE LicenseMiddleware --method [EXTRACTED]--> ._is_exempt()
+EDGE LicenseMiddleware --rationale_for [EXTRACTED]--> Middleware de validación de licencias.      Se instancia una sola vez al arranca
+EDGE LicenseMiddleware --uses [INFERRED]--> TestActivateViewGet
+EDGE LicenseMiddleware --uses [INFERRED]--> TestActivateViewPost
+EDGE LicenseMiddleware --uses [INFERRED]--> TestExpiredView
+EDGE LicenseMiddleware --uses [INFERRED]--> TestMiddlewareBlocking
+EDGE LicenseMiddleware --uses [INFERRED]--> TestMiddlewareExemptRoutes
+EDGE LicenseMiddleware --uses [INFERRED]--> TestMiddlewareIPExtraction
+EDGE LicenseMiddleware --uses [INFERRED]--> TestSuccessView
+EDGE LicenseResult --contains [EXTRACTED]--> license_engine.py
+EDGE LicenseResult --references [EXTRACTED]--> .validate()
+EDGE LicenseResult --references [EXTRACTED]--> .validate_offline()
+EDGE LicenseResult --calls [EXTRACTED]--> .validate_online()
+EDGE LicenseResult --method [EXTRACTED]--> .is_valid()
+EDGE LicenseResult --method [EXTRACTED]--> .__str__()
+EDGE LicenseResult --rationale_for [EXTRACTED]--> Resultado de una validación de licencia.      status posibles:         VALID
+EDGE LicenseResult --uses [INFERRED]--> TestActivateFromResponse
+EDGE LicenseResult --uses [INFERRED]--> TestActivationPayload
+EDGE LicenseResult --uses [INFERRED]--> TestGenerateKey
+EDGE LicenseResult --uses [INFERRED]--> TestLicenseResult
+EDGE LicenseResult --uses [INFERRED]--> TestNormalizeMac
+EDGE LicenseResult --uses [INFERRED]--> TestTokenStorage
+EDGE LicenseResult --uses [INFERRED]--> TestValidate
+EDGE LicenseResult --uses [INFERRED]--> TestValidateOffline
+EDGE LicenseResult --uses [INFERRED]--> TestVerifyKey
+EDGE LicenseResult --uses [INFERRED]--> TestActivateViewGet
+EDGE LicenseResult --uses [INFERRED]--> TestActivateViewPost
+EDGE LicenseResult --uses [INFERRED]--> TestExpiredView
+EDGE LicenseResult --uses [INFERRED]--> TestMiddlewareBlocking
+EDGE LicenseResult --uses [INFERRED]--> TestMiddlewareExemptRoutes
+EDGE LicenseResult --uses [INFERRED]--> TestMiddlewareIPExtraction
+EDGE LicenseResult --uses [INFERRED]--> TestSuccessView
+EDGE future_check() --rationale_for [EXTRACTED]--> Check en el futuro → simula rollback de reloj.
+EDGE LicenseMiddleware --method [EXTRACTED]--> .__call__()
+EDGE LicenseMiddleware --method [EXTRACTED]--> ._get_ip()
+EDGE LicenseMiddleware --method [EXTRACTED]--> .__init__()
+EDGE TestValidateOffline --method [EXTRACTED]--> .test_licencia_vencida()
+EDGE TestValidateOffline --method [EXTRACTED]--> .test_licencia_vigente()
+EDGE TestValidateOffline --method [EXTRACTED]--> .test_license_type_trial()
+EDGE TestValidateOffline --method [EXTRACTED]--> .test_limite_offline_justo()
+EDGE TestValidateOffline --method [EXTRACTED]--> .test_limite_offline_superado()
+EDGE TestValidateOffline --method [EXTRACTED]--> .test_rollback_de_reloj()
+EDGE TestValidateOffline --method [EXTRACTED]--> .test_token_sin_expiry()
+EDGE TestValidateOffline --method [EXTRACTED]--> .test_vence_hoy_boundary()
+EDGE engine() --rationale_for [EXTRACTED]--> Engine con token en directorio temporal.
+EDGE Client --imports [EXTRACTED]--> admin.py
+EDGE Client --uses [INFERRED]--> LicenseInline
+EDGE Client --uses [INFERRED]--> ClientAdmin
+EDGE Client --uses [INFERRED]--> LicenseAdmin
+EDGE Client --uses [INFERRED]--> AuditLogAdmin
+EDGE Client --contains [EXTRACTED]--> models.py
+EDGE Client --method [EXTRACTED]--> .active_license()
+EDGE Client --method [EXTRACTED]--> .__str__()
+EDGE Client --rationale_for [EXTRACTED]--> Empresa cliente identificada por la combinación MAC del servidor + NIT.     Una
+EDGE Client --imports [EXTRACTED]--> views.py
+EDGE Client --uses [INFERRED]--> ActivateLicenseView
+EDGE Client --uses [INFERRED]--> str
+EDGE Client --uses [INFERRED]--> TrialLicenseView
+EDGE Client --uses [INFERRED]--> ValidateLicenseView
+EDGE Client --imports [EXTRACTED]--> test_api.py
+EDGE Client --uses [INFERRED]--> TestActivateEndpoint
+EDGE Client --uses [INFERRED]--> TestModels
+EDGE Client --calls [EXTRACTED]--> .test_client_str()
+EDGE Client --uses [INFERRED]--> TestTrialEndpoint
+EDGE Client --uses [INFERRED]--> TestValidateEndpoint
+EDGE Client --uses [INFERRED]--> TestValidators
+EDGE Client --calls [INFERRED]--> .test_get_muestra_formulario()
+EDGE Client --calls [INFERRED]--> .test_get_muestra_reason_clock()
+EDGE Client --calls [INFERRED]--> .test_get_muestra_reason_tampered()
+EDGE Client --calls [INFERRED]--> .test_post_servidor_409_trial_ya_usado()
+EDGE Client --calls [INFERRED]--> .test_post_servidor_ok_redirige_a_success()
+EDGE Client --calls [INFERRED]--> .test_post_sin_conexion_muestra_error()
+EDGE Client --calls [INFERRED]--> .test_post_sin_nit_retorna_error()
+EDGE Client --calls [INFERRED]--> .test_post_sin_nombre_retorna_error()
+EDGE Client --calls [INFERRED]--> .test_post_sin_servidor_configurado_muestra_error()
+EDGE Client --calls [INFERRED]--> .test_muestra_pantalla_de_vencimiento()
+EDGE Client --calls [INFERRED]--> .test_tiene_link_a_activate()
+EDGE Client --calls [INFERRED]--> .test_api_protegida_sin_licencia()
+EDGE Client --calls [INFERRED]--> .test_clock_rollback_redirige_con_reason()
+EDGE Client --calls [INFERRED]--> .test_licencia_valida_pasa()
+EDGE Client --calls [INFERRED]--> .test_licencia_vencida_redirige_a_expired()
+EDGE Client --calls [INFERRED]--> .test_login_protegido_sin_licencia()
+EDGE Client --calls [INFERRED]--> .test_sin_licencia_redirige_a_activate()
+EDGE Client --calls [INFERRED]--> .test_token_manipulado_redirige_con_reason()
+EDGE Client --calls [INFERRED]--> .test_license_activate_exenta()
+EDGE Client --calls [INFERRED]--> .test_static_exento()
+EDGE Client --calls [INFERRED]--> .test_muestra_confirmacion()
+EDGE Client --calls [INFERRED]--> .test_tiene_link_al_login()
+EDGE .validate_offline() --rationale_for [EXTRACTED]--> Valida la licencia usando solo el token local (sin red).          Comprueba:
+EDGE TestActivateViewPost --method [EXTRACTED]--> ._make_engine_with_server()
+EDGE TestActivateViewPost --method [EXTRACTED]--> .test_post_servidor_409_trial_ya_usado()
+EDGE TestActivateViewPost --method [EXTRACTED]--> .test_post_servidor_ok_redirige_a_success()
+EDGE TestActivateViewPost --method [EXTRACTED]--> .test_post_sin_conexion_muestra_error()
+EDGE TestActivateViewPost --method [EXTRACTED]--> .test_post_sin_nit_retorna_error()
+EDGE TestActivateViewPost --method [EXTRACTED]--> .test_post_sin_nombre_retorna_error()
+EDGE TestActivateViewPost --method [EXTRACTED]--> .test_post_sin_servidor_configurado_muestra_error()
+EDGE license_engine.py --imports_from [EXTRACTED]--> engine_factory.py
+EDGE license_engine.py --contains [EXTRACTED]--> LicenseEngine
+EDGE license_engine.py --rationale_for [EXTRACTED]--> license_engine.py — Fase 1 Motor criptográfico del sistema de licencias.  Diseño
+EDGE ._is_exempt() --references [EXTRACTED]--> bool
+EDGE ._is_exempt() --references [EXTRACTED]--> str
+EDGE ._is_exempt() --rationale_for [EXTRACTED]--> Retorna True si la ruta no necesita validación de licencia.
+EDGE TestTokenStorage --method [EXTRACTED]--> .test_delete_token()
+EDGE TestTokenStorage --method [EXTRACTED]--> .test_delete_token_no_existe()
+EDGE TestTokenStorage --method [EXTRACTED]--> .test_guardar_y_cargar()
+EDGE TestTokenStorage --method [EXTRACTED]--> .test_payload_completo_roundtrip()
+EDGE TestTokenStorage --method [EXTRACTED]--> .test_token_archivo_corrupto()
+EDGE TestTokenStorage --method [EXTRACTED]--> .test_token_archivo_vacio()
+EDGE TestTokenStorage --method [EXTRACTED]--> .test_token_mac_diferente_tampered()
+EDGE TestTokenStorage --method [EXTRACTED]--> .test_token_no_existe()
+EDGE TestTokenStorage --method [EXTRACTED]--> .test_token_texto_plano()
+EDGE .__str__() --references [EXTRACTED]--> str
+EDGE LicenseEngine --imports [EXTRACTED]--> engine_factory.py
+EDGE LicenseEngine --calls [EXTRACTED]--> get_engine()
+EDGE LicenseEngine --uses [INFERRED]--> LicenseEngine
+EDGE LicenseEngine --method [EXTRACTED]--> .activate_from_response()
+EDGE LicenseEngine --method [EXTRACTED]--> .build_activation_payload()
+EDGE LicenseEngine --method [EXTRACTED]--> .delete_token()
+EDGE LicenseEngine --method [EXTRACTED]--> ._derive_fernet_key()
+EDGE LicenseEngine --method [EXTRACTED]--> .generate_key()
+EDGE LicenseEngine --method [EXTRACTED]--> .get_server_mac()
+EDGE LicenseEngine --method [EXTRACTED]--> .__init__()
+EDGE LicenseEngine --method [EXTRACTED]--> .load_token()
+EDGE LicenseEngine --method [EXTRACTED]--> ._normalize_mac()
+EDGE LicenseEngine --method [EXTRACTED]--> .save_token()
+EDGE LicenseEngine --method [EXTRACTED]--> .verify_key()
+EDGE LicenseEngine --rationale_for [EXTRACTED]--> Motor criptográfico del sistema de licencias.      Args:         secret_key:
+EDGE license_middleware.py --imports_from [EXTRACTED]--> engine_factory.py
+EDGE license_middleware.py --imports [EXTRACTED]--> get_engine()
+EDGE license_middleware.py --rationale_for [EXTRACTED]--> license_middleware.py — Middleware Django que valida la licencia en cada request
+EDGE LicenseResult --references [EXTRACTED]--> .validate()
+EDGE LicenseResult --references [EXTRACTED]--> .validate_offline()
+EDGE LicenseResult --calls [EXTRACTED]--> .validate_online()
+EDGE LicenseResult --method [EXTRACTED]--> .is_valid()
+EDGE LicenseResult --method [EXTRACTED]--> .__str__()
+EDGE LicenseResult --rationale_for [EXTRACTED]--> Resultado de una validación de licencia.      status posibles:         VALID
+EDGE TestGenerateKey --method [EXTRACTED]--> .test_determinismo_misma_entrada()
+EDGE TestGenerateKey --method [EXTRACTED]--> .test_genera_formato_correcto()
+EDGE TestGenerateKey --method [EXTRACTED]--> .test_mac_diferente_da_clave_diferente()
+EDGE TestGenerateKey --method [EXTRACTED]--> .test_mac_formatos_equivalentes()
+EDGE TestGenerateKey --method [EXTRACTED]--> .test_nit_diferente_da_clave_diferente()
+EDGE TestGenerateKey --method [EXTRACTED]--> .test_nit_normalizado()
+EDGE TestGenerateKey --method [EXTRACTED]--> .test_secret_diferente_da_clave_diferente()
+EDGE .is_valid() --references [EXTRACTED]--> bool
+EDGE TestMiddlewareExemptRoutes --method [EXTRACTED]--> .test_favicon_exento()
+EDGE TestMiddlewareExemptRoutes --method [EXTRACTED]--> .test_license_activate_exenta()
+EDGE TestMiddlewareExemptRoutes --method [EXTRACTED]--> .test_static_exento()
+EDGE TestExpiredView --method [EXTRACTED]--> .test_muestra_pantalla_de_vencimiento()
+EDGE TestExpiredView --method [EXTRACTED]--> .test_tiene_link_a_activate()
+EDGE TestSuccessView --method [EXTRACTED]--> .test_muestra_confirmacion()
+EDGE TestSuccessView --method [EXTRACTED]--> .test_tiene_link_al_login()
+EDGE TestMiddlewareIPExtraction --method [EXTRACTED]--> .test_ip_con_proxy()
+EDGE TestMiddlewareIPExtraction --method [EXTRACTED]--> .test_ip_directa()
+EDGE TestMiddlewareIPExtraction --method [EXTRACTED]--> .test_ip_sin_meta()
+EDGE .validate() --calls [EXTRACTED]--> .get_server_mac()
+EDGE .validate() --calls [EXTRACTED]--> .save_token()
+EDGE .validate() --calls [EXTRACTED]--> .load_token()
+EDGE .validate() --rationale_for [EXTRACTED]--> Valida la licencia. Llamado por LicenseMiddleware en cada request.          Orde
+EDGE license_engine.py --imports_from [EXTRACTED]--> engine_factory.py
+EDGE license_engine.py --rationale_for [EXTRACTED]--> license_engine.py — Fase 1 Motor criptográfico del sistema de licencias.  Diseño
+EDGE TestVerifyKey --method [EXTRACTED]--> .test_clave_correcta()
+EDGE TestVerifyKey --method [EXTRACTED]--> .test_clave_incorrecta()
+EDGE TestVerifyKey --method [EXTRACTED]--> .test_clave_vacia()
+EDGE TestVerifyKey --method [EXTRACTED]--> .test_mac_incorrecta()
+EDGE TestVerifyKey --method [EXTRACTED]--> .test_nit_incorrecto()
+EDGE TestActivationPayload --method [EXTRACTED]--> .test_campos_requeridos()
+EDGE TestActivationPayload --method [EXTRACTED]--> .test_clave_valida_en_payload()
+EDGE TestActivationPayload --method [EXTRACTED]--> .test_nit_normalizado_en_payload()
+EDGE TestValidate --method [EXTRACTED]--> .test_error_obtener_mac()
+EDGE TestValidate --method [EXTRACTED]--> .test_online_actualiza_token()
+EDGE TestValidate --method [EXTRACTED]--> .test_online_falla_fallback_offline()
+EDGE TestValidate --method [EXTRACTED]--> .test_rollback_reloj()
+EDGE TestValidate --method [EXTRACTED]--> .test_sin_token_retorna_no_license()
+EDGE TestValidate --method [EXTRACTED]--> .test_token_manipulado()
+EDGE TestValidate --method [EXTRACTED]--> .test_token_vencido_offline()
+EDGE TestValidate --method [EXTRACTED]--> .test_token_vigente_offline()
+EDGE TestNormalizeMac --method [EXTRACTED]--> .test_mac_con_dos_puntos()
+EDGE TestNormalizeMac --method [EXTRACTED]--> .test_mac_con_espacios()
+EDGE TestNormalizeMac --method [EXTRACTED]--> .test_mac_con_guiones()
+EDGE TestNormalizeMac --method [EXTRACTED]--> .test_mac_con_puntos()
+EDGE TestNormalizeMac --method [EXTRACTED]--> .test_mac_minusculas()
+EDGE TestNormalizeMac --method [EXTRACTED]--> .test_mac_mixta()
+EDGE TestNormalizeMac --method [EXTRACTED]--> .test_mac_ya_normalizada()
+EDGE TestLicenseResult --method [EXTRACTED]--> .test_is_valid_false()
+EDGE TestLicenseResult --method [EXTRACTED]--> .test_is_valid_true()
+EDGE TestLicenseResult --method [EXTRACTED]--> .test_str()
+EDGE mock_engine() --rationale_for [EXTRACTED]--> Crea un mock del engine que retorna el status dado.
+EDGE mock_engine() --calls [EXTRACTED]--> .test_get_muestra_formulario()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_get_muestra_reason_clock()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_get_muestra_reason_tampered()
+EDGE mock_engine() --calls [EXTRACTED]--> ._make_engine_with_server()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_muestra_pantalla_de_vencimiento()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_tiene_link_a_activate()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_api_protegida_sin_licencia()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_clock_rollback_redirige_con_reason()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_licencia_valida_pasa()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_licencia_vencida_redirige_a_expired()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_login_protegido_sin_licencia()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_sin_licencia_redirige_a_activate()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_token_manipulado_redirige_con_reason()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_license_activate_exenta()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_static_exento()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_muestra_confirmacion()
+EDGE mock_engine() --calls [EXTRACTED]--> .test_tiene_link_al_login()
+EDGE .validate_online() --references [EXTRACTED]--> str
+EDGE .validate_online() --rationale_for [EXTRACTED]--> Valida la licencia contra el servidor central.          Returns:             Lic
+EDGE TestActivateFromResponse --method [EXTRACTED]--> .test_guarda_token_correctamente()
+EDGE TestActivateFromResponse --method [EXTRACTED]--> .test_token_trial()
+EDGE ._get_ip() --references [EXTRACTED]--> str
+EDGE ._get_ip() --rationale_for [EXTRACTED]--> Extrae la IP real del cliente (considera proxies).
+EDGE TestActivateViewGet --method [EXTRACTED]--> .test_get_muestra_formulario()
+EDGE TestActivateViewGet --method [EXTRACTED]--> .test_get_muestra_reason_clock()
+EDGE TestActivateViewGet --method [EXTRACTED]--> .test_get_muestra_reason_tampered()
+EDGE TestMiddlewareBlocking --method [EXTRACTED]--> .test_api_protegida_sin_licencia()
+EDGE TestMiddlewareBlocking --method [EXTRACTED]--> .test_clock_rollback_redirige_con_reason()
+EDGE TestMiddlewareBlocking --method [EXTRACTED]--> .test_licencia_valida_pasa()
+EDGE TestMiddlewareBlocking --method [EXTRACTED]--> .test_licencia_vencida_redirige_a_expired()
+EDGE TestMiddlewareBlocking --method [EXTRACTED]--> .test_login_protegido_sin_licencia()
+EDGE TestMiddlewareBlocking --method [EXTRACTED]--> .test_sin_licencia_redirige_a_activate()
+EDGE TestMiddlewareBlocking --method [EXTRACTED]--> .test_token_manipulado_redirige_con_reason()
+EDGE make_result() --rationale_for [EXTRACTED]--> Crea un LicenseResult con valores por defecto.
+EDGE license_middleware.py --imports_from [EXTRACTED]--> engine_factory.py
+EDGE license_middleware.py --imports [EXTRACTED]--> get_engine()
+EDGE license_middleware.py --rationale_for [EXTRACTED]--> license_middleware.py — Fase 2 Intercepta TODOS los requests de Django antes del
+EDGE make_token() --rationale_for [EXTRACTED]--> Helper: crea y guarda un token válido.
+EDGE make_token() --calls [EXTRACTED]--> .test_delete_token()
+EDGE make_token() --calls [EXTRACTED]--> .test_online_actualiza_token()
+EDGE make_token() --calls [EXTRACTED]--> .test_online_falla_fallback_offline()
+EDGE make_token() --calls [EXTRACTED]--> .test_rollback_reloj()
+EDGE make_token() --calls [EXTRACTED]--> .test_token_vencido_offline()
+EDGE make_token() --calls [EXTRACTED]--> .test_token_vigente_offline()

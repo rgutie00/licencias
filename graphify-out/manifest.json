@@ -1,0 +1,197 @@
+{
+  "C:\\desarrollos\\licencias\\config\\__init__.py": {
+    "mtime": 1779737940.545969,
+    "ast_hash": "53a23b240ea64b0bb1fe3b150be40a31",
+    "semantic_hash": "53a23b240ea64b0bb1fe3b150be40a31"
+  },
+  "C:\\desarrollos\\licencias\\config\\settings.py": {
+    "mtime": 1779737953.785237,
+    "ast_hash": "f010d7b1f2fe795a906e2dc4f5cf4191",
+    "semantic_hash": "f010d7b1f2fe795a906e2dc4f5cf4191"
+  },
+  "C:\\desarrollos\\licencias\\config\\urls.py": {
+    "mtime": 1779737941.990198,
+    "ast_hash": "1662a1d5a8e6b0b3803edac907a4a17b",
+    "semantic_hash": "1662a1d5a8e6b0b3803edac907a4a17b"
+  },
+  "C:\\desarrollos\\licencias\\config\\wsgi.py": {
+    "mtime": 1779737603.6833718,
+    "ast_hash": "67288f593d073ba6085704813f375209",
+    "semantic_hash": "67288f593d073ba6085704813f375209"
+  },
+  "C:\\desarrollos\\licencias\\conftest.py": {
+    "mtime": 1779737608.7423296,
+    "ast_hash": "05859bf9727049454a57f3a2acbad144",
+    "semantic_hash": "05859bf9727049454a57f3a2acbad144"
+  },
+  "C:\\desarrollos\\licencias\\engine_factory.py": {
+    "mtime": 1779735998.7066522,
+    "ast_hash": "3c9207bab5730336b0e81122352aaa29",
+    "semantic_hash": "3c9207bab5730336b0e81122352aaa29"
+  },
+  "C:\\desarrollos\\licencias\\license_engine.py": {
+    "mtime": 1779735489.195936,
+    "ast_hash": "5c324d88d4153958fb3c163c2f08022c",
+    "semantic_hash": "5c324d88d4153958fb3c163c2f08022c"
+  },
+  "C:\\desarrollos\\licencias\\license_middleware.py": {
+    "mtime": 1779735998.6779523,
+    "ast_hash": "176c8905a2661556c4aa7284b9d37a70",
+    "semantic_hash": "176c8905a2661556c4aa7284b9d37a70"
+  },
+  "C:\\desarrollos\\licencias\\license_system\\__init__.py": {
+    "mtime": 1779736886.607033,
+    "ast_hash": "fae7ae2758648383b77912068fade4f7",
+    "semantic_hash": "fae7ae2758648383b77912068fade4f7"
+  },
+  "C:\\desarrollos\\licencias\\license_system\\apps.py": {
+    "mtime": 1779736890.6149657,
+    "ast_hash": "1f4c9113b4053ec22b2ae19d141488a5",
+    "semantic_hash": "1f4c9113b4053ec22b2ae19d141488a5"
+  },
+  "C:\\desarrollos\\licencias\\license_system\\engine_factory.py": {
+    "mtime": 1779736900.629892,
+    "ast_hash": "87ba528ca507ba60efd55d1b85aff164",
+    "semantic_hash": "87ba528ca507ba60efd55d1b85aff164"
+  },
+  "C:\\desarrollos\\licencias\\license_system\\license_engine.py": {
+    "mtime": 1779735489.195936,
+    "ast_hash": "5c324d88d4153958fb3c163c2f08022c",
+    "semantic_hash": "5c324d88d4153958fb3c163c2f08022c"
+  },
+  "C:\\desarrollos\\licencias\\license_system\\license_middleware.py": {
+    "mtime": 1779736909.8772697,
+    "ast_hash": "6efccc64f9c73f287cabe7606f4f81cf",
+    "semantic_hash": "6efccc64f9c73f287cabe7606f4f81cf"
+  },
+  "C:\\desarrollos\\licencias\\license_system\\urls.py": {
+    "mtime": 1779736929.9619193,
+    "ast_hash": "19c290df6e9bb2a5d112dac40d3f8625",
+    "semantic_hash": "19c290df6e9bb2a5d112dac40d3f8625"
+  },
+  "C:\\desarrollos\\licencias\\license_system\\views.py": {
+    "mtime": 1779736924.9121814,
+    "ast_hash": "58e2eb249a2b99811b398d600dc262c6",
+    "semantic_hash": "58e2eb249a2b99811b398d600dc262c6"
+  },
+  "C:\\desarrollos\\licencias\\licenses\\__init__.py": {
+    "mtime": 1779737608.7132072,
+    "ast_hash": "91fa0e7a50887a90dee16bb78288a4eb",
+    "semantic_hash": "91fa0e7a50887a90dee16bb78288a4eb"
+  },
+  "C:\\desarrollos\\licencias\\licenses\\admin.py": {
+    "mtime": 1779739560.5484376,
+    "ast_hash": "9fd80d0030f54f6928e7331a6c322277",
+    "semantic_hash": "9fd80d0030f54f6928e7331a6c322277"
+  },
+  "C:\\desarrollos\\licencias\\licenses\\apps.py": {
+    "mtime": 1779737608.6842058,
+    "ast_hash": "37df6fdd03abc8aa5de0aa8393b885dd",
+    "semantic_hash": "37df6fdd03abc8aa5de0aa8393b885dd"
+  },
+  "C:\\desarrollos\\licencias\\licenses\\models.py": {
+    "mtime": 1779737603.3649745,
+    "ast_hash": "658c19cc0b34cd4e0c820ba23170b5b1",
+    "semantic_hash": "658c19cc0b34cd4e0c820ba23170b5b1"
+  },
+  "C:\\desarrollos\\licencias\\licenses\\permissions.py": {
+    "mtime": 1779737603.475517,
+    "ast_hash": "16a03930fb60dc78912da570ba6d1b5c",
+    "semantic_hash": "16a03930fb60dc78912da570ba6d1b5c"
+  },
+  "C:\\desarrollos\\licencias\\licenses\\serializers.py": {
+    "mtime": 1779737603.5049994,
+    "ast_hash": "9bb9d4ac87a4cb6738009485641ae94d",
+    "semantic_hash": "9bb9d4ac87a4cb6738009485641ae94d"
+  },
+  "C:\\desarrollos\\licencias\\licenses\\urls.py": {
+    "mtime": 1779737608.6562066,
+    "ast_hash": "15dfd1772ed99d7134bb7f9ef0f321a9",
+    "semantic_hash": "15dfd1772ed99d7134bb7f9ef0f321a9"
+  },
+  "C:\\desarrollos\\licencias\\licenses\\validators.py": {
+    "mtime": 1779737603.4476175,
+    "ast_hash": "1f0d472ac0efb9b9f57b8f31acebe4f6",
+    "semantic_hash": "1f0d472ac0efb9b9f57b8f31acebe4f6"
+  },
+  "C:\\desarrollos\\licencias\\licenses\\views.py": {
+    "mtime": 1779737608.6288717,
+    "ast_hash": "1c92b21e76257ddaa262fba0d3c8b3ad",
+    "semantic_hash": "1c92b21e76257ddaa262fba0d3c8b3ad"
+  },
+  "C:\\desarrollos\\licencias\\manage.py": {
+    "mtime": 1779737603.711101,
+    "ast_hash": "8d7cdeee8810c46e90c2b853491dc91a",
+    "semantic_hash": "8d7cdeee8810c46e90c2b853491dc91a"
+  },
+  "C:\\desarrollos\\licencias\\mnt\\user-data\\outputs\\servidor\\config\\__init__.py": {
+    "mtime": 1779737603.6538978,
+    "ast_hash": "4542cedb1b8b27cfc7b4c8b262e2a397",
+    "semantic_hash": "4542cedb1b8b27cfc7b4c8b262e2a397"
+  },
+  "C:\\desarrollos\\licencias\\mnt\\user-data\\outputs\\servidor\\config\\urls.py": {
+    "mtime": 1779737603.6280942,
+    "ast_hash": "0a37edef6a6cdcc7efdbd1b53d754724",
+    "semantic_hash": "0a37edef6a6cdcc7efdbd1b53d754724"
+  },
+  "C:\\desarrollos\\licencias\\test_api.py": {
+    "mtime": 1779737603.7491655,
+    "ast_hash": "b0cda3c1273681f16234bca359b1b18d",
+    "semantic_hash": "b0cda3c1273681f16234bca359b1b18d"
+  },
+  "C:\\desarrollos\\licencias\\test_license_engine.py": {
+    "mtime": 1779735489.241575,
+    "ast_hash": "4358e1cfc7086869c38fe81ab64bc07f",
+    "semantic_hash": "4358e1cfc7086869c38fe81ab64bc07f"
+  },
+  "C:\\desarrollos\\licencias\\test_middleware_views.py": {
+    "mtime": 1779735999.006236,
+    "ast_hash": "6389787a2c1a45ae5b299418bf686a1e",
+    "semantic_hash": "6389787a2c1a45ae5b299418bf686a1e"
+  },
+  "C:\\desarrollos\\licencias\\test_urls.py": {
+    "mtime": 1779735998.976967,
+    "ast_hash": "5325d826c4799936bce462de04caa803",
+    "semantic_hash": "5325d826c4799936bce462de04caa803"
+  },
+  "C:\\desarrollos\\licencias\\activate.html": {
+    "mtime": 1779735998.8724453,
+    "ast_hash": "84228e85a9762c54ff40b5d5ae49d39d",
+    "semantic_hash": "84228e85a9762c54ff40b5d5ae49d39d"
+  },
+  "C:\\desarrollos\\licencias\\expired.html": {
+    "mtime": 1779735998.8990834,
+    "ast_hash": "e21efb88516b4777fc0d0ed9de4e3a46",
+    "semantic_hash": "e21efb88516b4777fc0d0ed9de4e3a46"
+  },
+  "C:\\desarrollos\\licencias\\license_system\\templates\\license\\activate.html": {
+    "mtime": 1779736943.5331676,
+    "ast_hash": "dd83fec388abe2e64d131ea5485a6b86",
+    "semantic_hash": "dd83fec388abe2e64d131ea5485a6b86"
+  },
+  "C:\\desarrollos\\licencias\\license_system\\templates\\license\\expired.html": {
+    "mtime": 1779736951.5268583,
+    "ast_hash": "1b5dad0e971ebf5006ce37915f1079cc",
+    "semantic_hash": "1b5dad0e971ebf5006ce37915f1079cc"
+  },
+  "C:\\desarrollos\\licencias\\license_system\\templates\\license\\success.html": {
+    "mtime": 1779736957.7794425,
+    "ast_hash": "9f064bdad637f6a39dcd636ef902e272",
+    "semantic_hash": "9f064bdad637f6a39dcd636ef902e272"
+  },
+  "C:\\desarrollos\\licencias\\requirements_fase1.txt": {
+    "mtime": 1779735489.2602856,
+    "ast_hash": "ea271863b00072c9eccbc6fef83e780e",
+    "semantic_hash": "ea271863b00072c9eccbc6fef83e780e"
+  },
+  "C:\\desarrollos\\licencias\\requirements_fase3.txt": {
+    "mtime": 1779737603.7669594,
+    "ast_hash": "586e6f17ff39f917d25205d152b54b36",
+    "semantic_hash": "586e6f17ff39f917d25205d152b54b36"
+  },
+  "C:\\desarrollos\\licencias\\success.html": {
+    "mtime": 1779735998.9188578,
+    "ast_hash": "64b76a70ba0b3691e639ada60b08de16",
+    "semantic_hash": "64b76a70ba0b3691e639ada60b08de16"
+  }
+}

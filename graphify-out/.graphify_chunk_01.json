@@ -1,0 +1,480 @@
+{
+  "nodes": [
+    {
+      "id": "activate_root_activate_page",
+      "label": "Activate License Page (Root)",
+      "file_type": "code",
+      "source_file": "activate.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "expired_root_expired_page",
+      "label": "Expired License Page (Root)",
+      "file_type": "code",
+      "source_file": "expired.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "success_root_success_page",
+      "label": "License Activated Success Page (Root)",
+      "file_type": "code",
+      "source_file": "success.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "template_activate_activate_template",
+      "label": "Activate License Template (Django)",
+      "file_type": "code",
+      "source_file": "license_system/templates/license/activate.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "template_expired_expired_template",
+      "label": "Expired License Template (Django)",
+      "file_type": "code",
+      "source_file": "license_system/templates/license/expired.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "template_success_success_template",
+      "label": "License Activated Success Template (Django)",
+      "file_type": "code",
+      "source_file": "license_system/templates/license/success.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "req_fase1_license_engine",
+      "label": "License Engine Requirements (Fase 1)",
+      "file_type": "document",
+      "source_file": "requirements_fase1.txt",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "req_fase3_central_server",
+      "label": "Central License Server Requirements (Fase 3)",
+      "file_type": "document",
+      "source_file": "requirements_fase3.txt",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_license_activation",
+      "label": "License Activation Flow",
+      "file_type": "rationale",
+      "source_file": "activate.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "The activation flow collects NIT (company tax ID), company name, and license type (commercial or trial/30-day), then binds the license to the server MAC address. This server-binding ensures the license cannot be reused on other machines."
+    },
+    {
+      "id": "concept_tamper_detection",
+      "label": "License Tamper and Clock-Skew Detection",
+      "file_type": "rationale",
+      "source_file": "license_system/templates/license/activate.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Two invalidation reasons are explicitly modelled: 'tampered' (license file corrupted or modified) and 'clock' (system clock was rolled back to bypass expiry). Both trigger forced re-activation, preventing offline time-manipulation attacks."
+    },
+    {
+      "id": "dep_cryptography",
+      "label": "cryptography==42.0.8",
+      "file_type": "code",
+      "source_file": "requirements_fase1.txt",
+      "source_location": "line 6",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "dep_psutil",
+      "label": "psutil==5.9.8 (MAC address reader)",
+      "file_type": "code",
+      "source_file": "requirements_fase1.txt",
+      "source_location": "line 9",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "dep_httpx",
+      "label": "httpx==0.27.0 (HTTP client for online validation)",
+      "file_type": "code",
+      "source_file": "requirements_fase1.txt",
+      "source_location": "line 12",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "dep_django",
+      "label": "Django==5.1.2",
+      "file_type": "code",
+      "source_file": "requirements_fase3.txt",
+      "source_location": "line 6",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "dep_drf",
+      "label": "djangorestframework==3.15.2",
+      "file_type": "code",
+      "source_file": "requirements_fase3.txt",
+      "source_location": "line 7",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "dep_psycopg2",
+      "label": "psycopg2-binary==2.9.9 (PostgreSQL)",
+      "file_type": "code",
+      "source_file": "requirements_fase3.txt",
+      "source_location": "line 10",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "dep_django_unfold",
+      "label": "django-unfold==0.40.0 (Modern Admin UI)",
+      "file_type": "code",
+      "source_file": "requirements_fase3.txt",
+      "source_location": "line 10",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "concept_license_states",
+      "label": "License State Machine (active/expired/tampered/clock-skew)",
+      "file_type": "rationale",
+      "source_file": "license_system/templates/license/expired.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "The system explicitly models at least three terminal states needing re-activation: normal expiry, file tampering, and clock manipulation. All redirect to the activation form, centralising recovery in one flow."
+    }
+  ],
+  "edges": [
+    {
+      "source": "activate_root_activate_page",
+      "target": "template_activate_activate_template",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "activate.html",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "expired_root_expired_page",
+      "target": "template_expired_expired_template",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "expired.html",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "success_root_success_page",
+      "target": "template_success_success_template",
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "success.html",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "template_activate_activate_template",
+      "target": "concept_license_activation",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "license_system/templates/license/activate.html",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "activate_root_activate_page",
+      "target": "concept_license_activation",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "activate.html",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "template_activate_activate_template",
+      "target": "concept_tamper_detection",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "license_system/templates/license/activate.html",
+      "source_location": "lines 24-34",
+      "weight": 1.0
+    },
+    {
+      "source": "template_expired_expired_template",
+      "target": "concept_license_states",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "license_system/templates/license/expired.html",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "expired_root_expired_page",
+      "target": "concept_license_states",
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "expired.html",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "expired_root_expired_page",
+      "target": "activate_root_activate_page",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "expired.html",
+      "source_location": "line 97",
+      "weight": 1.0
+    },
+    {
+      "source": "template_expired_expired_template",
+      "target": "template_activate_activate_template",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "license_system/templates/license/expired.html",
+      "source_location": "line 21",
+      "weight": 1.0
+    },
+    {
+      "source": "template_success_success_template",
+      "target": "dep_django",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "license_system/templates/license/success.html",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "req_fase1_license_engine",
+      "target": "dep_cryptography",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "requirements_fase1.txt",
+      "source_location": "line 6",
+      "weight": 1.0
+    },
+    {
+      "source": "req_fase1_license_engine",
+      "target": "dep_psutil",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "requirements_fase1.txt",
+      "source_location": "line 9",
+      "weight": 1.0
+    },
+    {
+      "source": "req_fase1_license_engine",
+      "target": "dep_httpx",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "requirements_fase1.txt",
+      "source_location": "line 12",
+      "weight": 1.0
+    },
+    {
+      "source": "req_fase3_central_server",
+      "target": "dep_django",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "requirements_fase3.txt",
+      "source_location": "line 6",
+      "weight": 1.0
+    },
+    {
+      "source": "req_fase3_central_server",
+      "target": "dep_drf",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "requirements_fase3.txt",
+      "source_location": "line 7",
+      "weight": 1.0
+    },
+    {
+      "source": "req_fase3_central_server",
+      "target": "dep_psycopg2",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "requirements_fase3.txt",
+      "source_location": "line 10",
+      "weight": 1.0
+    },
+    {
+      "source": "req_fase3_central_server",
+      "target": "dep_django_unfold",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "requirements_fase3.txt",
+      "source_location": "line 10",
+      "weight": 1.0
+    },
+    {
+      "source": "dep_cryptography",
+      "target": "concept_tamper_detection",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "requirements_fase1.txt",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "dep_psutil",
+      "target": "concept_license_activation",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "requirements_fase1.txt",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "dep_httpx",
+      "target": "concept_license_activation",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "requirements_fase1.txt",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "req_fase3_central_server",
+      "target": "template_activate_activate_template",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "requirements_fase3.txt",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "concept_tamper_detection",
+      "target": "concept_license_states",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "license_system/templates/license/activate.html",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "license_activation_ui_flow",
+      "label": "License Activation UI Flow (activate → success / expired)",
+      "nodes": [
+        "template_activate_activate_template",
+        "template_success_success_template",
+        "template_expired_expired_template"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "license_system/templates/license/expired.html"
+    },
+    {
+      "id": "fase1_crypto_engine",
+      "label": "Fase 1 Cryptographic License Engine",
+      "nodes": [
+        "req_fase1_license_engine",
+        "dep_cryptography",
+        "dep_psutil"
+      ],
+      "relation": "implement",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "requirements_fase1.txt"
+    },
+    {
+      "id": "fase3_central_server_stack",
+      "label": "Fase 3 Central License Server Stack",
+      "nodes": [
+        "req_fase3_central_server",
+        "dep_django",
+        "dep_drf"
+      ],
+      "relation": "implement",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "requirements_fase3.txt"
+    }
+  ],
+  "input_tokens": 3200,
+  "output_tokens": 1100
+}
