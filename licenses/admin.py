@@ -9,6 +9,8 @@ Vistas:
 import logging
 
 from django.contrib import admin, messages
+from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -18,6 +20,15 @@ from unfold.decorators import action
 from .models import AuditLog, Client, License
 
 logger = logging.getLogger("licenses")
+
+
+# ── USUARIO (con estilos Unfold) ─────────────────────────────────────────────
+
+admin.site.unregister(User)
+
+@admin.register(User)
+class UserAdmin(ModelAdmin, DjangoUserAdmin):
+    pass
 
 
 # ── INLINE: Licencias dentro de Cliente ─────────────────────────────────────

@@ -136,18 +136,36 @@ UNFOLD = {
         "show_all_applications": False,
         "navigation": [
             {
-                "title": "Licencias",
+                "title": "Dashboard",
                 "items": [
-                    {"title": "Dashboard", "icon": "dashboard", "link": "/admin/"},
-                    {"title": "Licencias", "icon": "key",       "link": "/admin/licenses/license/"},
-                    {"title": "Clientes",  "icon": "business",  "link": "/admin/licenses/client/"},
-                    {"title": "Audit Log", "icon": "history",   "link": "/admin/licenses/auditlog/"},
+                    {"title": "Inicio", "icon": "dashboard", "link": "/admin/"},
                 ],
             },
             {
-                "title": "Administración",
+                "title": "Clientes",
                 "items": [
-                    {"title": "Usuarios", "icon": "people", "link": "/admin/auth/user/"},
+                    {"title": "Ver clientes",    "icon": "business",    "link": "/admin/licenses/client/"},
+                    {"title": "Agregar cliente", "icon": "person_add",  "link": "/admin/licenses/client/add/"},
+                ],
+            },
+            {
+                "title": "Licencias",
+                "items": [
+                    {"title": "Ver licencias",    "icon": "key",      "link": "/admin/licenses/license/"},
+                    {"title": "Agregar licencia", "icon": "add_card", "link": "/admin/licenses/license/add/"},
+                ],
+            },
+            {
+                "title": "Usuarios",
+                "items": [
+                    {"title": "Ver usuarios",    "icon": "people",     "link": "/admin/auth/user/"},
+                    {"title": "Agregar usuario", "icon": "person_add", "link": "/admin/auth/user/add/"},
+                ],
+            },
+            {
+                "title": "Auditoría",
+                "items": [
+                    {"title": "Audit Log", "icon": "history", "link": "/admin/licenses/auditlog/"},
                 ],
             },
         ],
