@@ -542,3 +542,170 @@ class TestValidators:
         k2 = generate_license_key("AA:BB:CC:DD:EE:FF", FAKE_NIT)
         k3 = generate_license_key("AA-BB-CC-DD-EE-FF", FAKE_NIT)
         assert k1 == k2 == k3
+
+
+# ─────────────────────────────────────────────────────────────
+#  6. HMAC INVALIDO EN VALIDATE
+# ─────────────────────────────────────────────────────────────
+
+@pytest.mark.django_db
+class TestValidateHmacInvalido:
+
+    def test_hmac_invalido_retorna_403(self, api_client, settings,
+                                        existing_client, active_license):
+        """HMAC incorrecto en /validate → 403, no importa que el cliente exista."""
+        settings.LICENSE_AGENT_API_KEY = AGENT_API_KEY
+        settings.LICENSE_SECRET_KEY = "TEST_SECRET_FASE3"
+
+        response = api_client.post(
+            "/api/v1/licenses/validate",
+            {"mac": FAKE_MAC, "nit": FAKE_NIT, "license_key": "XXXX-XXXX-XXXX-XXXX"},
+            format="json",
+            **HEADERS,
+        )
+
+        assert response.status_code == 403
+        data = response.json()
+        assert data["valid"] is False
+
+    def test_hmac_invalido_genera_audit_log_rejected(self, api_client, settings,
+                                                      existing_client, active_license):
+        """HMAC incorrecto en /validate → AuditLog VALIDATE/rejected."""
+        settings.LICENSE_AGENT_API_KEY = AGENT_API_KEY
+        settings.LICENSE_SECRET_KEY = "TEST_SECRET_FASE3"
+
+        api_client.post(
+            "/api/v1/licenses/validate",
+            {"mac": FAKE_MAC, "nit": FAKE_NIT, "license_key": "XXXX-XXXX-XXXX-XXXX"},
+            format="json",
+            **HEADERS,
+        )
+
+        assert AuditLog.objects.filter(action="VALIDATE", result="rejected").exists()
+
+
+# ─────────────────────────────────────────────────────────────
+#  7. AUDIT LOG — verificacion de count y campos
+# ─────────────────────────────────────────────────────────────
+
+@pytest.mark.django_db
+class TestAuditLog:
+    """Verifica que cada operación genera exactamente un AuditLog con campos correctos."""
+
+    def test_activate_genera_exactamente_un_log(self, api_client, valid_key, settings):
+        settings.LICENSE_AGENT_API_KEY = AGENT_API_KEY
+
+        api_client.post(
+            "/api/v1/licenses/activate",
+            activation_payload(valid_key),
+            format="json",
+            **HEADERS,
+        )
+
+        logs = AuditLog.objects.filter(action="ACTIVATE", result="success")
+        assert logs.count() == 1
+        log = logs.first()
+        assert log.client is not None
+        assert log.license is not None
+        assert log.result == "success"
+
+    def test_validate_genera_exactamente_un_log(self, api_client, valid_key, settings,
+                                                  existing_client, active_license):
+        settings.LICENSE_AGENT_API_KEY = AGENT_API_KEY
+        AuditLog.objects.all().delete()
+
+        api_client.post(
+            "/api/v1/licenses/validate",
+            {"mac": FAKE_MAC, "nit": FAKE_NIT, "license_key": valid_key},
+            format="json",
+            **HEADERS,
+        )
+
+        logs = AuditLog.objects.filter(action="VALIDATE")
+        assert logs.count() == 1
+        log = logs.first()
+        assert log.client == existing_client
+        assert log.license == active_license
+        assert log.result == "success"
+
+    def test_trial_genera_exactamente_un_log(self, api_client, valid_key, settings):
+        settings.LICENSE_AGENT_API_KEY = AGENT_API_KEY
+
+        api_client.post(
+            "/api/v1/licenses/trial",
+            activation_payload(valid_key),
+            format="json",
+            **HEADERS,
+        )
+
+        logs = AuditLog.objects.filter(action="TRIAL_ACTIVATE", result="success")
+        assert logs.count() == 1
+        log = logs.first()
+        assert log.client is not None
+        assert log.license is not None
+
+    def test_activate_rechazado_genera_un_log_rejected(self, api_client, settings):
+        settings.LICENSE_AGENT_API_KEY = AGENT_API_KEY
+        settings.LICENSE_SECRET_KEY = "TEST_SECRET_FASE3"
+
+        api_client.post(
+            "/api/v1/licenses/activate",
+            activation_payload("XXXX-XXXX-XXXX-XXXX"),
+            format="json",
+            **HEADERS,
+        )
+
+        logs = AuditLog.objects.filter(action="ACTIVATE", result="rejected")
+        assert logs.count() == 1
+        log = logs.first()
+        assert log.result == "rejected"
+        assert "INVALID_KEY" in log.detail.get("reason", "")
+
+
+# ─────────────────────────────────────────────────────────────
+#  8. AGENT KEY PERMISSION — clase dedicada
+# ─────────────────────────────────────────────────────────────
+
+@pytest.mark.django_db
+class TestAgentKeyPermission:
+    """Verifica AgentKeyPermission en los tres casos del spec."""
+
+    def test_header_ausente_retorna_403(self, api_client, valid_key, settings):
+        """Header X-License-Agent-Key ausente → 403 en cualquier endpoint."""
+        settings.LICENSE_AGENT_API_KEY = AGENT_API_KEY
+        settings.LICENSE_SECRET_KEY = "TEST_SECRET_FASE3"
+
+        response = api_client.post(
+            "/api/v1/licenses/activate",
+            activation_payload(valid_key),
+            format="json",
+            # Sin header X-License-Agent-Key
+        )
+        assert response.status_code == 403
+
+    def test_valor_incorrecto_retorna_403(self, api_client, valid_key, settings):
+        """Header presente pero con valor incorrecto → 403."""
+        settings.LICENSE_AGENT_API_KEY = AGENT_API_KEY
+        settings.LICENSE_SECRET_KEY = "TEST_SECRET_FASE3"
+
+        response = api_client.post(
+            "/api/v1/licenses/activate",
+            activation_payload(valid_key),
+            format="json",
+            HTTP_X_LICENSE_AGENT_KEY="clave-incorrecta-deliberada",
+        )
+        assert response.status_code == 403
+
+    def test_valor_correcto_permite_acceso(self, api_client, valid_key, settings):
+        """Header con valor correcto → la petición pasa el guard de permiso (puede fallar por otras razones)."""
+        settings.LICENSE_AGENT_API_KEY = AGENT_API_KEY
+        settings.LICENSE_SECRET_KEY = "TEST_SECRET_FASE3"
+
+        response = api_client.post(
+            "/api/v1/licenses/activate",
+            activation_payload(valid_key),
+            format="json",
+            **HEADERS,
+        )
+        # El permiso pasó — no importa si la respuesta es 200 o 400 por otras razones
+        assert response.status_code != 403
