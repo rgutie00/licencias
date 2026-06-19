@@ -1,0 +1,170 @@
+{% load i18n static %}<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acceso · Servidor de Licencias</title>
+  <link rel="stylesheet" href="{% static 'unfold/fonts/inter/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'unfold/fonts/material-symbols/styles.css' %}">
+  <style>
+    :root{
+      --ink-0:#0B1220; --ink-1:#1E293B; --ink-2:#334155;
+      --line:#E2E8F0; --muted:#94A3B8; --teal:#2DD4BF; --sky:#0EA5E9;
+      --mono:ui-monospace,"Cascadia Code","Cascadia Mono",Consolas,"SF Mono",monospace;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; margin:0; }
+    body{
+      font-family:"Inter",system-ui,sans-serif; color:#0F172A;
+      background:#F1F5F9; display:grid; place-items:center; padding:24px;
+    }
+
+    .lz-card{
+      width:min(940px,100%); display:grid; grid-template-columns:1.05fr .95fr;
+      background:#fff; border-radius:24px; overflow:hidden;
+      box-shadow:0 40px 90px -45px rgba(2,8,23,.55); border:1px solid var(--line);
+      animation:lz-rise .55s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    /* Panel de marca */
+    .lz-brand{
+      position:relative; overflow:hidden; padding:44px 40px;
+      background:linear-gradient(150deg,var(--ink-0) 0%,var(--ink-1) 78%); color:#F8FAFC;
+      display:flex; flex-direction:column;
+    }
+    .lz-eyebrow{ font-family:var(--mono); font-size:11px; letter-spacing:.34em;
+      text-transform:uppercase; color:#64748B; }
+    .lz-mark{ display:flex; align-items:center; gap:12px; margin-top:14px; }
+    .lz-mark .material-symbols-outlined{
+      font-size:30px; color:var(--ink-0);
+      background:var(--teal); border-radius:11px; padding:8px;
+      box-shadow:0 0 26px -4px var(--teal);
+    }
+    .lz-mark h1{ font-size:23px; font-weight:700; letter-spacing:-.01em; margin:0; line-height:1.1; }
+    .lz-tagline{ margin-top:26px; font-size:15px; line-height:1.6; color:#CBD5E1; max-width:34ch; }
+    .lz-meta{ margin-top:auto; padding-top:30px; display:flex; gap:26px;
+      font-family:var(--mono); font-size:11px; }
+    .lz-meta dt{ color:#64748B; letter-spacing:.12em; text-transform:uppercase; font-size:9px; }
+    .lz-meta dd{ margin:4px 0 0; color:#E2E8F0; font-size:12px; }
+    .lz-keycut{ position:absolute; right:-30px; bottom:-34px; opacity:.09; pointer-events:none; }
+
+    /* Panel de formulario */
+    .lz-form{ padding:48px 44px; display:flex; flex-direction:column; justify-content:center; }
+    .lz-form h2{ font-size:21px; font-weight:700; margin:0 0 4px; letter-spacing:-.01em; }
+    .lz-form p.sub{ margin:0 0 26px; color:var(--muted); font-size:13.5px; }
+
+    .lz-field{ margin-bottom:16px; }
+    .lz-field label{ display:block; font-size:12px; font-weight:600; color:#475569;
+      letter-spacing:.02em; margin-bottom:7px; }
+    .lz-input{ position:relative; }
+    .lz-input .material-symbols-outlined{
+      position:absolute; left:13px; top:50%; transform:translateY(-50%);
+      font-size:19px; color:var(--muted); pointer-events:none; }
+    .lz-input input{
+      width:100%; padding:12px 14px 12px 42px; font-size:14px; font-family:inherit;
+      border:1px solid var(--line); border-radius:11px; background:#F8FAFC;
+      color:#0F172A; transition:border-color .14s,box-shadow .14s,background .14s; }
+    .lz-input input:focus{
+      outline:none; border-color:var(--teal); background:#fff;
+      box-shadow:0 0 0 4px rgba(45,212,191,.20); }
+
+    .lz-btn{
+      width:100%; margin-top:8px; padding:13px 16px; border:0; border-radius:11px;
+      background:#0F766E; color:#fff; font-size:14px; font-weight:600; font-family:inherit;
+      cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      transition:transform .12s,background .14s; }
+    .lz-btn:hover{ background:#0D9488; transform:translateY(-1px); }
+    .lz-btn:focus-visible{ outline:3px solid var(--teal); outline-offset:2px; }
+    .lz-btn .material-symbols-outlined{ font-size:18px; }
+
+    .lz-alert{
+      display:flex; gap:10px; align-items:flex-start; margin-bottom:22px;
+      padding:12px 14px; border-radius:11px; font-size:13px; line-height:1.45;
+      background:#FEF2F2; border:1px solid #FECACA; color:#B91C1C; }
+    .lz-alert .material-symbols-outlined{ font-size:18px; flex:none; margin-top:1px; }
+
+    .lz-foot{ margin-top:24px; font-family:var(--mono); font-size:10.5px;
+      letter-spacing:.06em; color:var(--muted); text-align:center; }
+
+    @keyframes lz-rise{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
+    @media (prefers-reduced-motion:reduce){ .lz-card{ animation:none; } }
+    @media (max-width:760px){
+      .lz-card{ grid-template-columns:1fr; }
+      .lz-brand{ padding:34px 30px; }
+      .lz-meta{ display:none; }
+      .lz-form{ padding:34px 30px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="lz-card">
+
+    <section class="lz-brand">
+      <span class="lz-eyebrow">Acceso restringido</span>
+      <div class="lz-mark">
+        <span class="material-symbols-outlined">key</span>
+        <h1>Servidor de Licencias</h1>
+      </div>
+      <p class="lz-tagline">Consola de administración de licencias, clientes y auditoría.
+        Identifícate para acceder a tu nivel de operación.</p>
+
+      <dl class="lz-meta">
+        <div><dt>Entorno</dt><dd>Panel central</dd></div>
+        <div><dt>Cifrado</dt><dd>HMAC-SHA256</dd></div>
+        <div><dt>Zona</dt><dd>América/Bogotá</dd></div>
+      </dl>
+
+      <svg class="lz-keycut" width="240" height="160" viewBox="0 0 240 160" fill="none" aria-hidden="true">
+        <circle cx="50" cy="80" r="32" stroke="#fff" stroke-width="10"/>
+        <rect x="80" y="70" width="150" height="20" fill="#fff"/>
+        <rect x="132" y="90" width="15" height="22" fill="#fff"/>
+        <rect x="166" y="90" width="15" height="30" fill="#fff"/>
+        <rect x="200" y="90" width="15" height="18" fill="#fff"/>
+      </svg>
+    </section>
+
+    <section class="lz-form">
+      <h2>Iniciar sesión</h2>
+      <p class="sub">Ingresa tus credenciales de operador.</p>
+
+      {% if form.errors %}
+      <div class="lz-alert" role="alert">
+        <span class="material-symbols-outlined">error</span>
+        <span>Usuario o contraseña incorrectos. Verifica los datos e inténtalo de nuevo.</span>
+      </div>
+      {% endif %}
+
+      <form method="post" action="{{ app_path }}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+
+        <div class="lz-field">
+          <label for="id_username">Usuario</label>
+          <div class="lz-input">
+            <span class="material-symbols-outlined">person</span>
+            <input type="text" name="username" id="id_username"
+                   autocapitalize="none" autocomplete="username" autofocus required
+                   placeholder="tu usuario">
+          </div>
+        </div>
+
+        <div class="lz-field">
+          <label for="id_password">Contraseña</label>
+          <div class="lz-input">
+            <span class="material-symbols-outlined">lock</span>
+            <input type="password" name="password" id="id_password"
+                   autocomplete="current-password" required placeholder="••••••••">
+          </div>
+        </div>
+
+        <button type="submit" class="lz-btn">
+          <span class="material-symbols-outlined">login</span>Entrar
+        </button>
+      </form>
+
+      <div class="lz-foot">Sistema de Licencias · acceso monitoreado</div>
+    </section>
+
+  </main>
+</body>
+</html>
