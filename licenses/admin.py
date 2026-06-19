@@ -140,21 +140,25 @@ class ClientAdmin(RowActionsMixin, ModelAdmin):
     ordering = ["-created_at"]
     inlines = [LicenseInline]
 
-    fieldsets = [
-        ("Identificación", {
-            "fields": ["id", "name", "nit", "mac"],
-        }),
-        ("Estado de licencia", {
-            "fields": ["trial_used", "anomalies_count"],
-        }),
-        ("Fechas", {
-            "fields": ["created_at", "updated_at"],
-        }),
-    ]
+    def get_fieldsets(self, request, obj=None):
+        if obj:  # Edición: mostrar la licencia activa
+            return [
+                ("Identificación", {"fields": ["id", "name", "nit", "mac"]}),
+                ("Estado de licencia", {
+                    "fields": ["license_status_badge", "trial_used", "anomalies_count"],
+                }),
+                ("Fechas", {"fields": ["created_at", "updated_at"]}),
+            ]
+        # Alta: aún no hay licencia ni fechas
+        return [
+            ("Identificación", {"fields": ["name", "nit", "mac"]}),
+            ("Estado de licencia", {"fields": ["anomalies_count"]}),
+        ]
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # Editando cliente existente — mac y nit son inmutables
-            return ["id", "mac", "nit", "trial_used", "created_at", "updated_at"]
+            return ["id", "mac", "nit", "trial_used", "created_at", "updated_at",
+                    "license_status_badge"]
         return ["id", "trial_used", "created_at", "updated_at"]  # Creando nuevo
 
     def mac_short(self, obj):
@@ -249,24 +253,35 @@ class LicenseAdmin(RowActionsMixin, ModelAdmin):
             return [
                 "id", "client", "license_type", "activated_at",
                 "activated_by", "last_validated_at", "revoked_at", "revoked_by",
+                "status_badge", "days_remaining_display",
             ]
         return ["id", "activated_at", "activated_by", "last_validated_at", "revoked_at", "revoked_by"]
 
-    fieldsets = [
-        ("Licencia", {
-            "fields": ["id", "client", "license_type", "status", "expiry_date"],
-        }),
-        ("Activación", {
-            "fields": ["activated_at", "activated_by", "last_validated_at"],
-        }),
-        ("Revocación", {
-            "fields": ["revoked_at", "revoked_by"],
-            "classes": ["collapse"],
-        }),
-        ("Notas", {
-            "fields": ["notes"],
-        }),
-    ]
+    def get_fieldsets(self, request, obj=None):
+        if obj:  # Edición: mostrar estado actual y días restantes
+            return [
+                ("Estado actual", {
+                    "fields": ["status_badge", "days_remaining_display"],
+                }),
+                ("Licencia", {
+                    "fields": ["id", "client", "license_type", "status", "expiry_date"],
+                }),
+                ("Activación", {
+                    "fields": ["activated_at", "activated_by", "last_validated_at"],
+                }),
+                ("Revocación", {
+                    "fields": ["revoked_at", "revoked_by"],
+                    "classes": ["collapse"],
+                }),
+                ("Notas", {"fields": ["notes"]}),
+            ]
+        # Alta: solo lo necesario para crear
+        return [
+            ("Licencia", {
+                "fields": ["client", "license_type", "status", "expiry_date"],
+            }),
+            ("Notas", {"fields": ["notes"]}),
+        ]
 
     def status_badge(self, obj):
         colors = {
