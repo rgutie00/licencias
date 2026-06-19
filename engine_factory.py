@@ -9,7 +9,7 @@ import logging
 
 from django.conf import settings
 
-from .license_engine import LicenseEngine
+from license_engine import LicenseEngine
 
 logger = logging.getLogger("license")
 
