@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Activación de licencia</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 540px; margin: 60px auto; padding: 0 16px; color: #1f2937; }
+        h1 { font-size: 1.6rem; margin-bottom: 0.25em; }
+        .lead { color: #4b5563; margin-top: 0; }
+        form { display: grid; gap: 12px; margin-top: 24px; }
+        label { display: grid; gap: 4px; font-size: 0.92rem; }
+        input[type="text"], select { padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 1rem; }
+        button { padding: 10px 16px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; }
+        button:hover { background: #1d4ed8; }
+        .alert { padding: 12px 14px; border-radius: 6px; margin: 16px 0; font-size: 0.95rem; }
+        .alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+        .alert-warn  { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    </style>
+</head>
+<body>
+    <h1>Activación de licencia</h1>
+    <p class="lead">Ingrese los datos de la empresa para activar la licencia de este servidor.</p>
+
+    {% if reason == "tampered" %}
+        <div class="alert alert-warn">
+            <strong>Atención:</strong> El archivo de licencia fue manipulado o está corrupto.
+            Debe reactivar la licencia en este servidor.
+        </div>
+    {% elif reason == "clock" %}
+        <div class="alert alert-warn">
+            <strong>Atención:</strong> Se detectó una alteración en el reloj del sistema.
+            La licencia fue invalidada por seguridad. Reactive la licencia para continuar.
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="alert alert-error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <label>
+            NIT de la empresa
+            <input type="text" name="nit" value="{{ form_data.nit|default:'' }}" required>
+        </label>
+
+        <label>
+            Nombre del cliente
+            <input type="text" name="client_name" value="{{ form_data.client_name|default:'' }}" required>
+        </label>
+
+        <label>
+            Tipo de licencia
+            <select name="license_type">
+                <option value="commercial" {% if form_data.license_type == "commercial" %}selected{% endif %}>Comercial</option>
+                <option value="trial" {% if form_data.license_type == "trial" %}selected{% endif %}>Prueba</option>
+            </select>
+        </label>
+
+        <button type="submit">Activar licencia</button>
+    </form>
+</body>
+</html>
