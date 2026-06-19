@@ -1,0 +1,21 @@
+{% load i18n admin_urls %}
+
+{% if cl %}
+    {% url cl.opts|admin_urlname:"add" as add_url %}
+    {% with verbose=cl.opts.verbose_name %}{% endwith %}
+{% else %}
+    {% url opts|admin_urlname:"add" as add_url %}
+{% endif %}
+
+{% if add_url %}
+    {% if cl.model_admin.show_add_link or adminform.model_admin.show_add_link %}
+        <div class="flex flex-row items-center">
+            <a href="{% add_preserved_filters add_url is_popup to_field %}"
+               class="addlink bg-primary-600 hover:bg-primary-600/80 text-white flex items-center gap-2 h-[38px] -my-1 px-4 rounded-full font-medium text-sm whitespace-nowrap"
+               title="{% blocktranslate with name=cl.opts.verbose_name|default:opts.verbose_name %}Agregar {{ name }}{% endblocktranslate %}">
+                <span class="material-symbols-outlined text-white" style="font-size:18px;">add</span>
+                <span>{% blocktranslate with name=cl.opts.verbose_name|default:opts.verbose_name %}Agregar {{ name }}{% endblocktranslate %}</span>
+            </a>
+        </div>
+    {% endif %}
+{% endif %}

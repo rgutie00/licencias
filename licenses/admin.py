@@ -52,8 +52,10 @@ class RowActionsMixin:
             )
         if request is None or self.has_delete_permission(request, obj):
             url = reverse(f"admin:{meta.app_label}_{meta.model_name}_delete", args=[obj.pk])
+            confirm = "¿Borrar este registro? Esta acción no se puede deshacer."
             btns.append(
                 f'<a href="{url}" title="Borrar" '
+                f'onclick="return confirm(\'{confirm}\');" '
                 f'style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;'
                 f'border:1px solid #FECACA;border-radius:8px;'
                 f'color:#DC2626;font-size:12px;font-weight:600;text-decoration:none;">'
